@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 458598686}
   - component: {fileID: 458598687}
   - component: {fileID: 458598688}
+  - component: {fileID: 458598689}
   m_Layer: 0
   m_Name: Player_Wheel1
   m_TagString: Untagged
@@ -225,6 +226,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &458598689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458598685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffcda5c6ee8bcde4cb1f510027cf4906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 458598688}
 --- !u!1 &808056765
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,8 +324,9 @@ GameObject:
   - component: {fileID: 1367554570}
   - component: {fileID: 1367554571}
   - component: {fileID: 1367554572}
+  - component: {fileID: 1367554573}
   m_Layer: 0
-  m_Name: Player_Doriru1
+  m_Name: Player_Drill1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -401,6 +416,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1367554573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367554569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ffd3dbc2eaa7d4d8745fa024bec25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1367554572}
 --- !u!1 &1784671066
 GameObject:
   m_ObjectHideFlags: 0
