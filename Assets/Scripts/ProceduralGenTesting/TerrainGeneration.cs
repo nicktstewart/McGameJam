@@ -13,7 +13,7 @@ public class TerrainGeneration : MonoBehaviour
     public int newMaxWidth, newMaxHeight, newMinWidth, newMinHeight;
     public int width, height;
     public Tilemap stoneMap, fossilFuelMap, fossilMap, bombMap, monsterBlockMap, healthMap;
-    public GameObject stone, fossilFuel, fossil, bomb, monsterBlock, health; 
+    public GameObject[] materials; //First dirt, then stone, finally gold
     private Grid thisGrid;
     // Start is called before the first frame update
     void Start()
@@ -33,25 +33,26 @@ public class TerrainGeneration : MonoBehaviour
         for(int x=Xo; x<X; x++){
             for(int y=Yo; y<Y; y++){
                 int randomNoise = generateRandomNoise(x,y);
+                GameObject prefab = materials[Random.Range(0, materials.Length)];
                 switch (randomNoise)
                 {
                     case 0:
-                        spawnTile(stone,stoneMap,x,y);
+                        spawnTile(materials[0],stoneMap,x,y,"Untagged");
                         break;
                     case 1:
-                        spawnTile(fossilFuel,fossilFuelMap,x,y);
+                        spawnTile(materials[1],fossilFuelMap,x,y,"FossilFuel");
                         break;
                     case 2:
-                        spawnTile(bomb,bombMap,x,y);
+                        spawnTile(prefab,bombMap,x,y,"Bomb");
                         break;
                     case 3:
-                        spawnTile(fossil,fossilMap,x,y);
+                        spawnTile(materials[2],fossilMap,x,y,"Fossil");
                         break;
                     case 4:
-                        spawnTile(monsterBlock,monsterBlockMap,x,y);
+                        spawnTile(prefab,monsterBlockMap,x,y,"Monster");
                         break;
                     case 5:
-                        spawnTile(health,healthMap,x,y);
+                        spawnTile(materials[2],healthMap,x,y,"Health");
                         break;
                 }
             }
@@ -74,10 +75,11 @@ public class TerrainGeneration : MonoBehaviour
         return choice;
     }
 
-    private void spawnTile(GameObject tile, Tilemap tilemap, int x, int y){
+    private void spawnTile(GameObject tile, Tilemap tilemap, int x, int y, string tag){
         Vector3 posInGrid = thisGrid.CellToWorld(new Vector3Int(x,y,0));
         tile = Instantiate(tile, posInGrid, Quaternion.identity);
         tile.transform.parent = tilemap.transform;
+        tile.tag = tag;
     }
 
     private void calculateBoundery(){

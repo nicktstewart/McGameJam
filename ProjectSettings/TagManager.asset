@@ -4,6 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Bomb
+  - FossilFuel
+  - Fossil
+  - Monster
+  - Health
   - ice
   layers:
   - Default
@@ -12,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
+  - 
   - 
   - 
   - 
@@ -41,7 +46,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-    uniqueID: 796971553
     locked: 0
