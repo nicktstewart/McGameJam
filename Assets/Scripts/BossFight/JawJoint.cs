@@ -62,7 +62,7 @@ public class JawJoint : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {     
         switch (masterPhase) {
             case MasterPhase.RoarTaunt:
