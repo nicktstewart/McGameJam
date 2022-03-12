@@ -9,6 +9,7 @@ public class PlayerMoveDigging : MonoBehaviour
     public float speed;
     public static bool isDrilling;
     public static bool isMoving;
+    private bool isBreaking;
     private Player inputMap;
     private int coolDown = 0;
     bool xReady;
@@ -29,6 +30,7 @@ public class PlayerMoveDigging : MonoBehaviour
     void Start()
     {
         isDrilling = false;
+        isBreaking = false;
         isMoving = false;
         xReady = true;
         yReady = true;
@@ -46,41 +48,44 @@ public class PlayerMoveDigging : MonoBehaviour
         float moveX = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().x;
         float moveY = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().y;
 
-        // movemnet x
-        if (moveX > 0 && xReady && coolDown == 0)
-        {
-            StartCoroutine(MoveBlock(transform.position.x + 3.8f, transform.position.y, 20));
-            transform.localScale = new Vector3(1, 1, 1);
-            transform.eulerAngles = new Vector3(0, 0, 0);
-            coolDown = 10;
-            xReady = false;
-        }
-        else if (moveX < 0 && xReady && coolDown == 0)
-        {
-            StartCoroutine(MoveBlock(transform.position.x - 3.8f, transform.position.y, 20));
-            transform.localScale = new Vector3(-1, 1, 1);
-            transform.eulerAngles = new Vector3(0, 0, 0);
-            coolDown = 10;
-            xReady = false;
-        }
+        if (coolDown == 0 && !isBreaking){
+            // movemnet x
+            if (moveX > 0 && xReady)
+            {
+                StartCoroutine(MoveBlock(transform.position.x + 3.8f, transform.position.y, 20));
+                transform.localScale = new Vector3(1, 1, 1);
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                coolDown = 10;
+                xReady = false;
+            }
+            else if (moveX < 0 && xReady)
+            {
+                StartCoroutine(MoveBlock(transform.position.x - 3.8f, transform.position.y, 20));
+                transform.localScale = new Vector3(-1, 1, 1);
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                coolDown = 10;
+                xReady = false;
+            }
 
-        // movement y
-        if (moveY > 0 && yReady && coolDown == 0)
-        {
-            StartCoroutine(MoveBlock(transform.position.x, transform.position.y + 3.8f, 20));
-            transform.localScale = new Vector3(1, 1, 1);
-            transform.eulerAngles = new Vector3(0, 0, 90);
-            coolDown = 10;
-            yReady = false;
+            // movement y
+            if (moveY > 0 && yReady)
+            {
+                StartCoroutine(MoveBlock(transform.position.x, transform.position.y + 3.8f, 20));
+                transform.localScale = new Vector3(1, 1, 1);
+                transform.eulerAngles = new Vector3(0, 0, 90);
+                coolDown = 10;
+                yReady = false;
+            }
+            else if (moveY < 0 && yReady)
+            {
+                StartCoroutine(MoveBlock(transform.position.x, transform.position.y - 3.8f, 20));
+                transform.localScale = new Vector3(-1, 1, 1);
+                transform.eulerAngles = new Vector3(0, 0, 90);
+                coolDown = 10;
+                yReady = false;
+            }
         }
-        else if (moveY < 0 && yReady && coolDown == 0)
-        {
-            StartCoroutine(MoveBlock(transform.position.x, transform.position.y - 3.8f, 20));
-            transform.localScale = new Vector3(-1, 1, 1);
-            transform.eulerAngles = new Vector3(0, 0, 90);
-            coolDown = 10;
-            yReady = false;
-        }
+        
 
         // reset keys
         if (moveX == 0)
@@ -124,11 +129,13 @@ public class PlayerMoveDigging : MonoBehaviour
             transform.position = new Vector3(x, y, 0);
             yield return new WaitForSeconds(0.1f);
         }
-        else
+        else if (isDrilling)
         {
             GameObject block = hitColliders[0].gameObject;
-            Debug.Log(block);
+            isBreaking = true;
             yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
+            if (isDrilling) transform.position = new Vector3(x, y, 0);
+            isBreaking = false;
         }
         
         isMoving = false;

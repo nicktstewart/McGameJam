@@ -10,7 +10,8 @@ public class BlockBreaking : MonoBehaviour
     //This is should be called when the player wants this block
     public float breakBlock(){
         float breakTime = 0.1f;
-
+        
+        afterWaitTime = nothing;
         //Stuff that happens when breaking the block
         switch(this.tag){
             case "Health":
@@ -49,10 +50,13 @@ public class BlockBreaking : MonoBehaviour
     }
     IEnumerator KillBlock(float waitTime){
         yield return new WaitForSeconds(waitTime);
-        afterWaitTime();
-        Debug.Log("test");
-        Destroy(this);
+        if(PlayerMoveDigging.isDrilling){
+            afterWaitTime();
+            Destroy(this.gameObject);
+        }
     }
+
+    void nothing(){}
 
     void addHealth(){
         DashboardController.hp ++;
