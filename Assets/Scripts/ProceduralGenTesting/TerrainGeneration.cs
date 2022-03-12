@@ -30,8 +30,8 @@ public class TerrainGeneration : MonoBehaviour
 
     //Method that generates the map from the point (X,Y) to the point (Xo,Yo)
     void Generation(int Xo, int Yo, int X, int Y){
-        for(int x=Xo; x<=Y; x++){
-            for(int y=Yo; y<=Y; y++){
+        for(int x=Xo; x<X; x++){
+            for(int y=Yo; y<Y; y++){
                 int randomNoise = generateRandomNoise(x,y);
                 switch (randomNoise)
                 {
@@ -94,22 +94,18 @@ public class TerrainGeneration : MonoBehaviour
     {
         calculateBoundery();
         if(newMaxHeight>maxHeight){
-            Debug.Log("newMaxHeight>maxHeight");
             Generation(minWidth,maxHeight,maxWidth,newMaxHeight);
             maxHeight = newMaxHeight;
         }
         if(newMinHeight<minHeight){
-            Debug.Log("newMinHeight<minHeight");
             Generation(minWidth,newMinHeight,maxWidth,minHeight);
             minHeight = newMinHeight;
         }
         if(newMaxWidth>maxWidth){
-            Debug.Log("newMaxWidth>maxWidth");
             Generation(maxWidth,minHeight,newMaxWidth,maxHeight);
             maxWidth = newMaxWidth;
         }
         if(newMinWidth<minWidth){
-            Debug.Log("newMinWidth<minWidth");
             Generation(newMinWidth,minHeight,minWidth,maxHeight);
             minWidth = newMinWidth;
         }

@@ -186,9 +186,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1398941710215323388}
-  scale: 1
+  scale: 3
   offset: 495
-  renderDistance: 5
+  renderDistance: 10
   maxWidth: 0
   maxHeight: 0
   minWidth: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   fossil: {fileID: 3372816611873448778, guid: d36c53b432028894489081de085ac85f, type: 3}
   bomb: {fileID: 3372816611873448778, guid: d36c53b432028894489081de085ac85f, type: 3}
   monsterBlock: {fileID: 3372816611873448778, guid: d36c53b432028894489081de085ac85f, type: 3}
-  health: {fileID: 3372816611873448778, guid: d36c53b432028894489081de085ac85f, type: 3}
+  health: {fileID: 2895146999277451316, guid: 57c79e90ec44317429f6aec7f94f4f30, type: 3}
 --- !u!1 &729365777
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +363,7 @@ MonoBehaviour:
   height: 100
   offsetX: 0
   offsetY: 0
-  scale: 10
+  scale: 100
 --- !u!212 &857704233
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1680,7 +1680,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 26.118076
+  orthographic size: 17.21024
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
