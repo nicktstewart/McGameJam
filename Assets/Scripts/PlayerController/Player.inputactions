@@ -11,7 +11,8 @@
                     "id": "827a58ab-c774-4e11-aca0-2873d133463e",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Jump",
@@ -19,7 +20,8 @@
                     "id": "a053a850-8c5b-433b-9cdb-1ecc9abcdda7",
                     "expectedControlType": "Analog",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Crouch",
@@ -27,7 +29,8 @@
                     "id": "30321dff-a5d9-4719-904d-053b33b46984",
                     "expectedControlType": "Analog",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Look",
@@ -35,7 +38,8 @@
                     "id": "b7096b1c-4e8d-4c59-935d-b29ed8194184",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Shoot",
@@ -43,7 +47,8 @@
                     "id": "5a4ace15-b16f-4121-b276-06787f2b01ec",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Launch",
@@ -51,7 +56,8 @@
                     "id": "beffeec9-c2b1-4475-9709-160053bdbbdd",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -91,7 +97,7 @@
                 {
                     "name": "Left",
                     "id": "3303132c-a77b-4a4f-875a-c8d0472ad14e",
-                    "path": "",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -102,7 +108,7 @@
                 {
                     "name": "Right",
                     "id": "17ef5463-3534-464e-a8e9-62facd1b8217",
-                    "path": "",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

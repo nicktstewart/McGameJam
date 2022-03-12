@@ -10,7 +10,7 @@ public class PlayerMouvement : MonoBehaviour
     private int isFacingRight = 1;          //if the sprite is facing the right
     private float crouching;
     private Rigidbody2D rb;                     //Rigidbody component of the player
-    private CapsuleCollider2D caspuleCollider;  //CapsuleCollider component of the player
+    private BoxCollider2D boxCollider;  //CapsuleCollider component of the player
     private Player inputMap;
 
     public LayerMask platformLayerMask;         //Filter to check for platforms
@@ -19,7 +19,7 @@ public class PlayerMouvement : MonoBehaviour
     public float iceWalkSpeed = 0.5f;           //walk speed on ice
     public float crouchMultiplier = 2f;
     public float multiplier = 0.5f;
-    public Animator animator;
+    // public Animator animator;
     public GameObject hook;
 
     [HideInInspector] public bool isGrounded;
@@ -29,7 +29,7 @@ public class PlayerMouvement : MonoBehaviour
     {
         //get player components
         rb = transform.GetComponent<Rigidbody2D>();
-        caspuleCollider = transform.GetComponent<CapsuleCollider2D>();
+        boxCollider = transform.GetComponent<BoxCollider2D>();
         crouching = inputMap.PlayerControls.Crouch.ReadValue<float>();
     }
 
@@ -55,15 +55,16 @@ public class PlayerMouvement : MonoBehaviour
 
         float jumping = inputMap.PlayerControls.Jump.ReadValue<float>();
         float moveDelta = -inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().y;
+        Debug.Log(moveDelta);
         isGrounded = IsGrounded();
 
         if(isGrounded){
             if (jumping == 1){
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                animator.SetBool("isJumping", true);
+                // animator.SetBool("isJumping", true);
             }
             else{
-                animator.SetBool("isJumping", false);
+                // animator.SetBool("isJumping", false);
             }
         }
     
@@ -91,9 +92,9 @@ public class PlayerMouvement : MonoBehaviour
     {
         crouching = inputMap.PlayerControls.Crouch.ReadValue<float>();
 
-        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-        animator.SetFloat("Vy", rb.velocity.y);
-        animator.SetFloat("Crouching", crouching);
+        // animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+        // animator.SetFloat("Vy", rb.velocity.y);
+        // animator.SetFloat("Crouching", crouching);
     }
     
     /**
@@ -104,10 +105,10 @@ public class PlayerMouvement : MonoBehaviour
      * returns a bool (true if on ground else false) 
      */
     private bool IsGrounded() {
-        RaycastHit2D raycastHit2D = Physics2D.CapsuleCast(caspuleCollider.bounds.center, caspuleCollider.size, 0f, .1f, Vector2.down,.15f,platformLayerMask);
+        RaycastHit2D raycastHit2D = Physics2D.CapsuleCast(boxCollider.bounds.center, boxCollider.size, 0f, .1f, Vector2.down,.15f,platformLayerMask);
         
         if (raycastHit2D.collider != null){
-            lastTouchedIsIce = raycastHit2D.transform.CompareTag("ice");
+            // lastTouchedIsIce = raycastHit2D.transform.CompareTag("ice");
             return true;
         }
         return false;
