@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerMoveDigging : MonoBehaviour
 {
     public float speed;
-    public int direction;
     public static bool isDrilling;
     public static bool isMoving;
     private Player inputMap;
@@ -37,6 +36,10 @@ public class PlayerMoveDigging : MonoBehaviour
 
         float moveY = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().y;
         transform.position = new Vector3(transform.position.x + moveX * speed, transform.position.y + moveY * speed, 0);
+        if (moveX != 0 || moveY != 0)
+            isMoving = true;
+        else
+            isMoving = false;
 
         if(moveX > 0 || moveY != 0)
             transform.localScale = new Vector3(1, 1, 1);
@@ -53,11 +56,11 @@ public class PlayerMoveDigging : MonoBehaviour
 
     void OnShoot()
     {
-
+        isDrilling = true;
     }
 
     void StopShoot()
     {
-
+        isDrilling = false;
     }
 }
