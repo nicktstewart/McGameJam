@@ -10,6 +10,7 @@ public class TerrainGeneration : MonoBehaviour
     public int offset;
     public int renderDistance;
     public int maxWidth, maxHeight, minWidth, minHeight;
+    public int newMaxWidth, newMaxHeight, newMinWidth, newMinHeight;
     public int width, height;
     public Tilemap stoneMap, fossilFuelMap, fossilMap, bombMap, monsterBlockMap, healthMap;
     public GameObject stone, fossilFuel, fossil, bomb, monsterBlock, health; 
@@ -18,19 +19,19 @@ public class TerrainGeneration : MonoBehaviour
     void Start()
     {
         thisGrid = this.GetComponent<Grid>();
-        Vector3Int posInGrid = thisGrid.WorldToCell(player.position);
-        maxWidth = posInGrid.x+renderDistance;
-        maxHeight = posInGrid.y+renderDistance;
-        minWidth = posInGrid.x-renderDistance;
-        minHeight = posInGrid.y-renderDistance;
+        calculateBoundery();
+        maxHeight = newMaxHeight;
+        maxWidth = newMaxWidth;
+        minHeight = newMinHeight;
+        minWidth = newMinWidth;
 
         Generation(minWidth, minHeight, maxWidth, maxHeight);
     }
 
     //Method that generates the map from the point (X,Y) to the point (Xo,Yo)
     void Generation(int Xo, int Yo, int X, int Y){
-        for(int x=Xo; x<Y; x++){
-            for(int y=Yo; y<Y; y++){
+        for(int x=Xo; x<=Y; x++){
+            for(int y=Yo; y<=Y; y++){
                 int randomNoise = generateRandomNoise(x,y);
                 switch (randomNoise)
                 {
@@ -79,10 +80,38 @@ public class TerrainGeneration : MonoBehaviour
         tile.transform.parent = tilemap.transform;
     }
 
-    
+    private void calculateBoundery(){
+        Vector3Int posInGrid = thisGrid.WorldToCell(player.position);
+        newMaxWidth = posInGrid.x+renderDistance;
+        newMaxHeight = posInGrid.y+renderDistance;
+        newMinWidth = posInGrid.x-renderDistance;
+        newMinHeight = posInGrid.y-renderDistance;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        
+        calculateBoundery();
+        if(newMaxHeight>maxHeight){
+            Debug.Log("newMaxHeight>maxHeight");
+            Generation(minWidth,maxHeight,maxWidth,newMaxHeight);
+            maxHeight = newMaxHeight;
+        }
+        if(newMinHeight<minHeight){
+            Debug.Log("newMinHeight<minHeight");
+            Generation(minWidth,newMinHeight,maxWidth,minHeight);
+            minHeight = newMinHeight;
+        }
+        if(newMaxWidth>maxWidth){
+            Debug.Log("newMaxWidth>maxWidth");
+            Generation(maxWidth,minHeight,newMaxWidth,maxHeight);
+            maxWidth = newMaxWidth;
+        }
+        if(newMinWidth<minWidth){
+            Debug.Log("newMinWidth<minWidth");
+            Generation(newMinWidth,minHeight,minWidth,maxHeight);
+            minWidth = newMinWidth;
+        }
     }
 }
