@@ -21,9 +21,6 @@ public class JawJoint : MonoBehaviour
         masterPhase = newMasterPhase;
         switch (masterPhase) {
             case MasterPhase.Idle:
-                JointMotor2D motor = hinge.motor;
-                motor.motorSpeed = 0;
-                hinge.motor = motor;
                 hinge.useMotor = false;
                 break;
         }
@@ -41,16 +38,28 @@ public class JawJoint : MonoBehaviour
         phase = Phase.BiteUpPhase;
     }
 
+    void GenericJawAnim(int amp)
+    {
+        JointMotor2D motor = hinge.motor;
+        if (phase == Phase.BiteUpPhase) {
+            motor.motorSpeed -= amp;
+        }
+        else if (phase == Phase.BiteDownPhase) {
+            motor.motorSpeed += amp;
+        }
+        hinge.motor = motor;
+    }
+
     // Update is called once per frame
     void Update()
     {     
-        JointMotor2D motor = hinge.motor;
-        if (phase == Phase.BiteUpPhase) {
-            motor.motorSpeed -= 100;
+        switch (masterPhase) {
+            case MasterPhase.RoarTaunt:
+                GenericJawAnim(100);
+                break;
+            case MasterPhase.BiteRage:
+                GenericJawAnim(100);
+                break;
         }
-        else if (phase == Phase.BiteDownPhase) {
-            motor.motorSpeed += 100;
-        }
-        hinge.motor = motor;
     }
 }
