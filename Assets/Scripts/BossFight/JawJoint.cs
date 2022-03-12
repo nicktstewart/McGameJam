@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class JawJoint : MonoBehaviour
 {
-    HingeJoint2D hinge;
-    Phase phase;
+    private HingeJoint2D hinge;
+    private HeadPhase phase;
 
-    MasterPhase masterPhase;
+    private MasterPhase masterPhase;
 
     // Start is called before the first frame update
     void Start()
     {
         hinge = GetComponent<HingeJoint2D>();
-        phase = Phase.NoPhase;
+        phase = HeadPhase.NoPhase;
     }
 
     void ResetHinge()
@@ -40,22 +40,22 @@ public class JawJoint : MonoBehaviour
     void BiteDownChild()
     {
         hinge.useMotor = true;
-        phase = Phase.BiteDownPhase;
+        phase = HeadPhase.BiteDownPhase;
     }
 
     void BiteUpChild()
     {
         hinge.useMotor = true;
-        phase = Phase.BiteUpPhase;
+        phase = HeadPhase.BiteUpPhase;
     }
 
     void GenericJawAnim(int amp)
     {
         JointMotor2D motor = hinge.motor;
-        if (phase == Phase.BiteUpPhase) {
+        if (phase == HeadPhase.BiteUpPhase) {
             motor.motorSpeed -= amp;
         }
-        else if (phase == Phase.BiteDownPhase) {
+        else if (phase == HeadPhase.BiteDownPhase) {
             motor.motorSpeed += amp;
         }
         hinge.motor = motor;

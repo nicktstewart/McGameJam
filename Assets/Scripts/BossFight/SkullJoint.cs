@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public enum Phase {
+public enum HeadPhase {
     NoPhase,
     BiteUpPhase,
     BiteDownPhase
@@ -11,16 +11,16 @@ public enum Phase {
 
 public class SkullJoint : MonoBehaviour
 {
-    HingeJoint2D hinge;
+    private HingeJoint2D hinge;
 
-    Phase phase;
-    MasterPhase masterPhase;
+    private HeadPhase phase;
+    private MasterPhase masterPhase;
 
     // Start is called before the first frame update
     void Start()
     {
         hinge = GetComponent<HingeJoint2D>();
-        phase = Phase.NoPhase;
+        phase = HeadPhase.NoPhase;
         masterPhase = MasterPhase.Idle;
     }
 
@@ -35,6 +35,9 @@ public class SkullJoint : MonoBehaviour
     {
         masterPhase = newMasterPhase;
         switch (masterPhase) {
+            case MasterPhase.Idle:
+                hinge.useMotor = false;
+                break;
             case MasterPhase.RoarTaunt: case MasterPhase.BiteRage:
                 ResetHinge();
                 BiteDownChild();
@@ -45,29 +48,29 @@ public class SkullJoint : MonoBehaviour
     void BiteDownChild()
     {
         hinge.useMotor = true;
-        phase = Phase.BiteDownPhase;
+        phase = HeadPhase.BiteDownPhase;
     }
 
     void BiteUpChild()
     {
         hinge.useMotor = true;
-        phase = Phase.BiteUpPhase;
+        phase = HeadPhase.BiteUpPhase;
     }
 
     void GenericSkullAnim(int amp)
     {
         JointMotor2D motor = hinge.motor;
-        if (phase == Phase.BiteUpPhase) {
+        if (phase == HeadPhase.BiteUpPhase) {
             motor.motorSpeed -= amp;
             if (motor.motorSpeed <= -1000) {
-                phase = Phase.BiteDownPhase;
+                phase = HeadPhase.BiteDownPhase;
                 SendMessageUpwards("BiteDown");
             }
         }
-        else if (phase == Phase.BiteDownPhase) {
+        else if (phase == HeadPhase.BiteDownPhase) {
             motor.motorSpeed += amp;
             if (motor.motorSpeed >= 1000) {
-                phase = Phase.BiteUpPhase;
+                phase = HeadPhase.BiteUpPhase;
                 SendMessageUpwards("BiteUp");
             }
         }
@@ -77,13 +80,6 @@ public class SkullJoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // print(Math.Abs(hinge.jointAngle - hinge.limits.min));
-        // if (phase == Phase.BiteDownPhase && Math.Abs(hinge.jointAngle - hinge.limits.min) < 5) {
-        //     SendMessageUpwards("BiteUp");
-        // }
-        // else if (phase == Phase.BiteUpPhase && Math.Abs(hinge.limits.max - hinge.jointAngle) < 5) {
-        //     SendMessageUpwards("BiteDown");
-        // }
         switch (masterPhase) {
             case MasterPhase.RoarTaunt:
                 GenericSkullAnim(900);
