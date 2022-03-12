@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerMoveDigging : MonoBehaviour
 {
     public float speed;
-    public int direction;
     public static bool isDrilling;
     public static bool isMoving;
     private Player inputMap;
