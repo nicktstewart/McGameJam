@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMouvement : MonoBehaviour
 {
     //initializing instance variables
-    private bool lastTouchedIsIce = false;      //if last surface touched is ice
+    public bool lastTouchedIsIce = false;      //if last surface touched is ice
     private int isFacingRight = 1;          //if the sprite is facing the right
     private float crouching;
     private Rigidbody2D rb;                     //Rigidbody component of the player
@@ -108,7 +108,7 @@ public class PlayerMouvement : MonoBehaviour
         RaycastHit2D raycastHit2D = Physics2D.CapsuleCast(boxCollider.bounds.center, boxCollider.size, 0f, .1f, Vector2.down,.15f,platformLayerMask);
         
         if (raycastHit2D.collider != null){
-            // lastTouchedIsIce = raycastHit2D.transform.CompareTag("ice");
+            lastTouchedIsIce = raycastHit2D.transform.CompareTag("ice");
             return true;
         }
         return false;

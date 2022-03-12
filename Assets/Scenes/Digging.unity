@@ -432,6 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b10bfdebcb23b74e83702e5c2faa8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastTouchedIsIce: 0
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -522,7 +523,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10.852989
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
