@@ -77,15 +77,15 @@ public class PlayerMoveDigging : MonoBehaviour
      */
     void FoundFossile(int fossileType)
     {
-        if(fossileType = 0)
+        if(fossileType == 0)
         {
             DashboardController.hasSkull++;
         }
-        if (fossileType = 1)
+        if (fossileType == 1)
         {
             DashboardController.hasArm++;
         }
-        if (fossileType = 2)
+        if (fossileType == 2)
         {
             DashboardController.hasLeg++;
         }
