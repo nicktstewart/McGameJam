@@ -16,7 +16,8 @@ public class PauseMenuController : MonoBehaviour
         }
         isOpen = false;
         BGMController.isPaused = false;
-        BGMController.bgmvolume = 0.1f;
+        float bgm_volume = PlayerPrefs.GetFloat("BGMVolume", 0.1f);
+        BGMController.bgmvolume = bgm_volume;
     }
 
     private void OnEnable()
