@@ -70,7 +70,7 @@ public class pointerController : MonoBehaviour
             //find the angle of the triangle made by center, mouse, (mouseX,centerY)
             float theta = Vector2.SignedAngle(Vector2.right, hitPointPos - (Vector2)playerPos);
             
-            Vector2 lauchVector = (hitPointPos - (Vector2)(playerPos)).normalized;
+            lauchVector = (hitPointPos - (Vector2)(playerPos)).normalized;
 
             hook.transform.eulerAngles = new Vector3(0,0,theta);
 

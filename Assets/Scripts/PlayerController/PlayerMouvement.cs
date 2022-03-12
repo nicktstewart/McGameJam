@@ -17,7 +17,7 @@ public class PlayerMouvement : MonoBehaviour
     public float jumpForce = 1f;                //jump force
     public float walkSpeed = 1f;                //walk speed on normal ground
     public float iceWalkSpeed = 0.5f;           //walk speed on ice
-    public float crouchMultiplier = 2f;
+    public float lauchMultiplier = 2f;
     // public Animator animator;
     public GameObject hook;
 
@@ -54,6 +54,7 @@ public class PlayerMouvement : MonoBehaviour
 
         float jumping = inputMap.PlayerControls.Jump.ReadValue<float>();
         float moveDelta = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().x;
+        if(moveDelta != 0) moveDelta /= Mathf.Abs(moveDelta);
         isGrounded = IsGrounded();
 
         if(isGrounded){
@@ -100,7 +101,9 @@ public class PlayerMouvement : MonoBehaviour
 
     public void Launch(Vector2 LaunchVec, float launchForce){
         lastTouchedIsIce = true;
-        Debug.Log("Lauching");
-        rb.velocity += LaunchVec*launchForce*100;
+        Debug.Log(rb.velocity);
+        Debug.Log(LaunchVec);
+        rb.velocity += LaunchVec*launchForce*lauchMultiplier/10;
+        Debug.Log(rb.velocity);
     }
 }

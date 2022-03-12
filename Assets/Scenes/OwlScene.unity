@@ -674,7 +674,7 @@ MonoBehaviour:
   jumpForce: 20
   walkSpeed: 10
   iceWalkSpeed: 10
-  crouchMultiplier: 2
+  lauchMultiplier: 2
   hook: {fileID: 2079685834}
   isGrounded: 0
 --- !u!95 &4911739841958247946
