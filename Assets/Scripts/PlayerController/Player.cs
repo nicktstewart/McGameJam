@@ -80,6 +80,15 @@ public partial class @Player : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""c396b8f8-198e-4c13-b368-7151048943da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -203,6 +212,17 @@ public partial class @Player : IInputActionCollection2, IDisposable
                     ""action"": ""Launch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a83833e3-f500-4daf-8bb8-1a82db8edd6d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,6 +237,7 @@ public partial class @Player : IInputActionCollection2, IDisposable
         m_PlayerControls_Look = m_PlayerControls.FindAction("Look", throwIfNotFound: true);
         m_PlayerControls_Shoot = m_PlayerControls.FindAction("Shoot", throwIfNotFound: true);
         m_PlayerControls_Launch = m_PlayerControls.FindAction("Launch", throwIfNotFound: true);
+        m_PlayerControls_Escape = m_PlayerControls.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -282,6 +303,7 @@ public partial class @Player : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Look;
     private readonly InputAction m_PlayerControls_Shoot;
     private readonly InputAction m_PlayerControls_Launch;
+    private readonly InputAction m_PlayerControls_Escape;
     public struct PlayerControlsActions
     {
         private @Player m_Wrapper;
@@ -292,6 +314,7 @@ public partial class @Player : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_PlayerControls_Look;
         public InputAction @Shoot => m_Wrapper.m_PlayerControls_Shoot;
         public InputAction @Launch => m_Wrapper.m_PlayerControls_Launch;
+        public InputAction @Escape => m_Wrapper.m_PlayerControls_Escape;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -319,6 +342,9 @@ public partial class @Player : IInputActionCollection2, IDisposable
                 @Launch.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLaunch;
                 @Launch.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLaunch;
                 @Launch.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLaunch;
+                @Escape.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -341,6 +367,9 @@ public partial class @Player : IInputActionCollection2, IDisposable
                 @Launch.started += instance.OnLaunch;
                 @Launch.performed += instance.OnLaunch;
                 @Launch.canceled += instance.OnLaunch;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -353,5 +382,6 @@ public partial class @Player : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnLaunch(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

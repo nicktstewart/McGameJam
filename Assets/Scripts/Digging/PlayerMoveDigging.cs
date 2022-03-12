@@ -32,6 +32,7 @@ public class PlayerMoveDigging : MonoBehaviour
         isMoving = false;
         xReady = true;
         yReady = true;
+        DashboardController.hp = 100;
     }
 
 
@@ -117,23 +118,17 @@ public class PlayerMoveDigging : MonoBehaviour
         y = Mathf.Round(y * 100f) / 100f;
         x = Mathf.Round(x * 100f) / 100f;
 
-        Collider[] hitColliders;
-        hitColliders = Physics.OverlapSphere(new Vector3(x, y, 0), 0.1f);
+        Collider2D[] hitColliders = Physics2D.OverlapPointAll(new Vector2(x, y));
         
-        GameObject block = emptyBoi;
-        foreach (var hitCollider in hitColliders)
-        {
-            block = hitCollider.gameObject;
-        }
-        if (block.tag == "Air")
-        {
+        if(hitColliders.Length == 0){
             transform.position = new Vector3(x, y, 0);
             yield return new WaitForSeconds(0.1f);
         }
         else
         {
-            yield return new WaitForSeconds(0.3f);
-            //yield return new WaitForSeconds(BreakingBlock.breakBlock());
+            GameObject block = hitColliders[0].gameObject;
+            Debug.Log(block);
+            yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
         }
         
         isMoving = false;
