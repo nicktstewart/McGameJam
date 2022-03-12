@@ -959,7 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 808056765}
-  cameraSpeed: 1.5
+  cameraSpeed: 3
 --- !u!1 &1944399620
 GameObject:
   m_ObjectHideFlags: 0

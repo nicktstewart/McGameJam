@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMoveDigging : MonoBehaviour
 {
+    public GameObject emptyBoi;
     public float speed;
     public static bool isDrilling;
     public static bool isMoving;
@@ -36,6 +37,7 @@ public class PlayerMoveDigging : MonoBehaviour
 
     void FixedUpdate()
     {
+        // cooldown
         if (coolDown > 0)
             coolDown--;
 
@@ -43,38 +45,51 @@ public class PlayerMoveDigging : MonoBehaviour
         float moveX = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().x;
         float moveY = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().y;
 
-        if (moveX > 0 && xReady)
-            moveX = 1;
-        if (moveX < 0 && xReady)
-            moveX = -1;
-        if (moveY > 0 && yReady)
-            moveY = 1;
-        if (moveY < 0 && yReady)
-            moveY = -1;
-        if (moveX = 0)
-
-        if((moveX != 0 || moveY != 0) && coolDown == 0)
+        // movemnet x
+        if (moveX > 0 && xReady && coolDown == 0)
         {
-            StartCoroutine(MoveBlock(transform.position.x + 3.8f * moveX, transform.position.y + 3.8f * moveY, 20));
-            coolDown = 20;
+            StartCoroutine(MoveBlock(transform.position.x + 3.8f, transform.position.y, 20));
+            transform.localScale = new Vector3(1, 1, 1);
+            transform.eulerAngles = new Vector3(0, 0, 0);
+            coolDown = 10;
+            xReady = false;
+        }
+        else if (moveX < 0 && xReady && coolDown == 0)
+        {
+            StartCoroutine(MoveBlock(transform.position.x - 3.8f, transform.position.y, 20));
+            transform.localScale = new Vector3(-1, 1, 1);
+            transform.eulerAngles = new Vector3(0, 0, 0);
+            coolDown = 10;
+            xReady = false;
         }
 
-        if (moveX != 0 || moveY != 0)
-            isMoving = true;
-        else
-            isMoving = false;
-
-        if (moveX > 0 || moveY != 0)
+        // movement y
+        if (moveY > 0 && yReady && coolDown == 0)
+        {
+            StartCoroutine(MoveBlock(transform.position.x, transform.position.y + 3.8f, 20));
             transform.localScale = new Vector3(1, 1, 1);
-        if (moveX < 0 && moveY == 0)
-            transform.localScale = new Vector3(-1, 1, 1);
-
-        if (moveY > 0)
             transform.eulerAngles = new Vector3(0, 0, 90);
-        else if (moveY < 0)
-            transform.eulerAngles = new Vector3(0, 0, -90);
-        else
-            transform.eulerAngles = new Vector3(0, 0, 0);
+            coolDown = 10;
+            yReady = false;
+        }
+        else if (moveY < 0 && yReady && coolDown == 0)
+        {
+            StartCoroutine(MoveBlock(transform.position.x, transform.position.y - 3.8f, 20));
+            transform.localScale = new Vector3(-1, 1, 1);
+            transform.eulerAngles = new Vector3(0, 0, 90);
+            coolDown = 10;
+            yReady = false;
+        }
+
+        // reset keys
+        if (moveX == 0)
+        {
+            xReady = true;
+        }
+        if (moveY == 0)
+        {
+            yReady = true;
+        }
     }
 
     void OnShoot()
@@ -98,29 +113,30 @@ public class PlayerMoveDigging : MonoBehaviour
 
     IEnumerator MoveBlock(float x, float y, int duration)
     {
+        isMoving = true;
         y = Mathf.Round(y * 100f) / 100f;
         x = Mathf.Round(x * 100f) / 100f;
 
-        Collider[] hitColliders = Physics.OverlapSphere(new Vector3(x, y, 0), 0.1f);
-        GameObject block = null;
+        Collider[] hitColliders;
+        hitColliders = Physics.OverlapSphere(new Vector3(x, y, 0), 0.1f);
+        
+        GameObject block = emptyBoi;
         foreach (var hitCollider in hitColliders)
         {
             block = hitCollider.gameObject;
         }
-        if (block == null || block.tag == "Air")
+        if (block.tag == "Air")
         {
             transform.position = new Vector3(x, y, 0);
-        }
-        if(block.tag == "Rock")
-        {
             yield return new WaitForSeconds(0.1f);
-            transform.position = new Vector3(x, y, 0);
         }
         else
         {
-            coolDown = 0;
+            yield return new WaitForSeconds(0.3f);
+            //yield return new WaitForSeconds(BreakingBlock.breakBlock());
         }
-        yield return new WaitForSeconds(0.1f);
+        
+        isMoving = false;
     }
 
 
