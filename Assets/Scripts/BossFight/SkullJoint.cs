@@ -78,10 +78,10 @@ public class SkullJoint : MonoBehaviour
         // }
         switch (masterPhase) {
             case MasterPhase.RoarTaunt:
-                GenericSkullAnim(100);
+                GenericSkullAnim(900);
                 break;
             case MasterPhase.BiteRage:
-                GenericSkullAnim(10);
+                GenericSkullAnim(100);
                 break;
         }
     }

@@ -14,9 +14,11 @@ public class BossController : MonoBehaviour
 {
 
     bool flag = true;
+    private AudioSource source;
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
     }
 
     void BiteDown()
@@ -32,9 +34,11 @@ public class BossController : MonoBehaviour
     void Update()
     {
         if (flag) {
-            
-        BroadcastMessage("SetMasterPhase", MasterPhase.RoarTaunt);
-        flag = false;
+            BroadcastMessage("SetMasterPhase", MasterPhase.RoarTaunt);
+            source.Play();
+            flag = false;
         }
+        if (!source.isPlaying) 
+            BroadcastMessage("SetMasterPhase", MasterPhase.Idle);
     }
 }
