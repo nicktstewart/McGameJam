@@ -12,14 +12,28 @@ public enum MasterPhase {
 
 public class BossController : MonoBehaviour
 {
+    [SerializeField]
+    public GameObject player;
 
-    bool flag = true;
-    bool flag2 = true;
-    private AudioSource source;
+    [SerializeField]
+    public Camera MainCamera;
+
+    [SerializeField]
+    public AudioSource Music;
+    [SerializeField]
+    public AudioSource RoarAudio;
+
+    private bool active = false;
+    private const float playerDistanceMin = 20f;
+    private const float cameraSizeMax = 12f;
+
+    private float startTime = 0;
+    private float duration = -1;
 
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        Music.Stop();
+        RoarAudio.Stop();
     }
 
     void BiteDown()
@@ -32,16 +46,26 @@ public class BossController : MonoBehaviour
         BroadcastMessage("BiteUpChild");
     }
 
+    void EndPhase()
+    {
+        BroadcastMessage("SetMasterPhase", MasterPhase.Idle);
+    }
+
     void Update()
     {
-        if (flag) {
+        if (!active && Vector3.Distance(transform.position, player.transform.position) <= playerDistanceMin) {
+            active = true;
+            startTime = Time.time;
+            duration = 3f;
             BroadcastMessage("SetMasterPhase", MasterPhase.RoarTaunt);
-            source.Play();
-            flag = false;
+            RoarAudio.Play();
+            Music.loop = true;
+            Music.Play();
         }
-        if (!source.isPlaying && flag2) {
-            BroadcastMessage("SetMasterPhase", MasterPhase.Idle);
-            flag2 = false;
+        if (active && MainCamera.orthographicSize < cameraSizeMax) MainCamera.orthographicSize += Time.deltaTime;
+        if (duration != -1 && Time.time - startTime > duration) {
+            duration = -1;
+            EndPhase();
         }
     }
 }
