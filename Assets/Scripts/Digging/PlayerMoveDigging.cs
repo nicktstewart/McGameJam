@@ -28,7 +28,7 @@ public class PlayerMoveDigging : MonoBehaviour
         isMoving = false;
     }
 
-    
+
     void FixedUpdate()
     {
         float moveX = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().x;
@@ -41,7 +41,7 @@ public class PlayerMoveDigging : MonoBehaviour
         else
             isMoving = false;
 
-        if(moveX > 0 || moveY != 0)
+        if (moveX > 0 || moveY != 0)
             transform.localScale = new Vector3(1, 1, 1);
         if (moveX < 0 && moveY == 0)
             transform.localScale = new Vector3(-1, 1, 1);
@@ -62,5 +62,32 @@ public class PlayerMoveDigging : MonoBehaviour
     void StopShoot()
     {
         isDrilling = false;
+    }
+
+    void Damaged (int damage){
+        DashboardController.hp -= damage;
+    }
+
+    /*
+     * 
+     * Skull : fossileType 0
+     * Arm   : fossileType 1
+     * Leg   : fossileType 2
+     * 
+     */
+    void FoundFossile(int fossileType)
+    {
+        if(fossileType = 0)
+        {
+            DashboardController.hasSkull++;
+        }
+        if (fossileType = 1)
+        {
+            DashboardController.hasArm++;
+        }
+        if (fossileType = 2)
+        {
+            DashboardController.hasLeg++;
+        }
     }
 }
