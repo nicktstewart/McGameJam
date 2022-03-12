@@ -16,12 +16,23 @@ public class JawJoint : MonoBehaviour
         phase = Phase.NoPhase;
     }
 
+    void ResetHinge()
+    {
+        JointMotor2D motor = new JointMotor2D();
+        motor.maxMotorTorque = 10000;
+        hinge.motor = motor;
+    }
+
     void SetMasterPhase(MasterPhase newMasterPhase)
     {
         masterPhase = newMasterPhase;
         switch (masterPhase) {
             case MasterPhase.Idle:
                 hinge.useMotor = false;
+                break;
+            case MasterPhase.RoarTaunt: case MasterPhase.BiteRage:
+                ResetHinge();
+                BiteDownChild();
                 break;
         }
     }

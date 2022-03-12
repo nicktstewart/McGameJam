@@ -14,6 +14,7 @@ public class BossController : MonoBehaviour
 {
 
     bool flag = true;
+    bool flag2 = true;
     private AudioSource source;
 
     void Start()
@@ -38,7 +39,9 @@ public class BossController : MonoBehaviour
             source.Play();
             flag = false;
         }
-        if (!source.isPlaying) 
+        if (!source.isPlaying && flag2) {
             BroadcastMessage("SetMasterPhase", MasterPhase.Idle);
+            flag2 = false;
+        }
     }
 }

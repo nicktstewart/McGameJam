@@ -24,12 +24,20 @@ public class SkullJoint : MonoBehaviour
         masterPhase = MasterPhase.Idle;
     }
 
+    void ResetHinge()
+    {
+        JointMotor2D motor = new JointMotor2D();
+        motor.maxMotorTorque = 10000;
+        hinge.motor = motor;
+    }
+
     void SetMasterPhase(MasterPhase newMasterPhase)
     {
         masterPhase = newMasterPhase;
         switch (masterPhase) {
             case MasterPhase.RoarTaunt: case MasterPhase.BiteRage:
-                SendMessageUpwards("BiteDown");
+                ResetHinge();
+                BiteDownChild();
                 break;
         }
     }
