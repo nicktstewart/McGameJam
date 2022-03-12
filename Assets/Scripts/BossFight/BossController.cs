@@ -25,7 +25,8 @@ public class BossController : MonoBehaviour
 
     private bool active = false;
     private const float playerDistanceMin = 20f;
-    private const float cameraSizeMax = 12f;
+    private const float cameraSizeMax = 15f;
+    private const float cameraYMax = 9f;
 
     private float startTime = 0;
     private float duration = -1;
@@ -51,7 +52,7 @@ public class BossController : MonoBehaviour
         BroadcastMessage("SetMasterPhase", MasterPhase.Idle);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!active && Vector3.Distance(transform.position, player.transform.position) <= playerDistanceMin) {
             active = true;
@@ -62,7 +63,8 @@ public class BossController : MonoBehaviour
             Music.loop = true;
             Music.Play();
         }
-        if (active && MainCamera.orthographicSize < cameraSizeMax) MainCamera.orthographicSize += Time.deltaTime;
+        if (active && MainCamera.orthographicSize < cameraSizeMax) MainCamera.orthographicSize *= 1.01f;
+                
         if (duration != -1 && Time.time - startTime > duration) {
             duration = -1;
             EndPhase();
