@@ -6,7 +6,7 @@ public class BGMController : MonoBehaviour
 {
     public AudioSource audioNormal;
     public AudioSource audioPaused;
-    public static float bgmvolume;
+    public static float bgmvolume = 1;
     public static bool isPaused;
 
     void Update()
