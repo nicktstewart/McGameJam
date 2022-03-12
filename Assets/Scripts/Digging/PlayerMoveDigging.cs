@@ -32,7 +32,7 @@ public class PlayerMoveDigging : MonoBehaviour
     void FixedUpdate()
     {
         float moveX = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().x;
-        print(inputMap.PlayerControls.Mouvement.ReadValue<Vector2>());
+        // print(inputMap.PlayerControls.Mouvement.ReadValue<Vector2>());
 
         float moveY = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().y;
         transform.position = new Vector3(transform.position.x + moveX * speed, transform.position.y + moveY * speed, 0);
