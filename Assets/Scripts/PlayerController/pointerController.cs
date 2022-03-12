@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class scarfController : MonoBehaviour
+public class pointerController : MonoBehaviour
 {
     public GameObject player;
-    public Camera camera;
+    public Camera playerCamera;
     public GameObject hook;
     public SpriteRenderer hookSpriteRenderer;
     public LayerMask platformLayerMask;         //Filter to check for platforms
@@ -52,7 +52,7 @@ public class scarfController : MonoBehaviour
     void Update()
     {
         Vector2 mousePos = inputMap.PlayerControls.Look.ReadValue<Vector2>();
-        Vector3 worldPosition = camera.ScreenToWorldPoint(mousePos);
+        Vector3 worldPosition = playerCamera.ScreenToWorldPoint(mousePos);
         float playerx = player.transform.position.x;
         float playery = player.transform.position.y;
 

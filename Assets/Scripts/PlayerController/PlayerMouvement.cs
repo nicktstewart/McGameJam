@@ -18,7 +18,6 @@ public class PlayerMouvement : MonoBehaviour
     public float walkSpeed = 1f;                //walk speed on normal ground
     public float iceWalkSpeed = 0.5f;           //walk speed on ice
     public float crouchMultiplier = 2f;
-    public float multiplier = 0.5f;
     // public Animator animator;
     public GameObject hook;
 
@@ -54,8 +53,7 @@ public class PlayerMouvement : MonoBehaviour
         //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
         float jumping = inputMap.PlayerControls.Jump.ReadValue<float>();
-        float moveDelta = -inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().y;
-        Debug.Log(moveDelta);
+        float moveDelta = inputMap.PlayerControls.Mouvement.ReadValue<Vector2>().x;
         isGrounded = IsGrounded();
 
         if(isGrounded){

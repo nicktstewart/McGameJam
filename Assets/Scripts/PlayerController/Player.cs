@@ -97,7 +97,7 @@ public partial class @Player : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Up"",
                     ""id"": ""c82aeddb-78fa-4039-84e8-6b42a500985b"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -108,7 +108,7 @@ public partial class @Player : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Down"",
                     ""id"": ""d26ab910-f25b-472e-a608-d71f13405e1c"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
