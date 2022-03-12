@@ -13,18 +13,14 @@ public class pointerController : MonoBehaviour
     public PlayerMouvement pm;
     public float chargeDelay = 1f;
 
+    //program variables
     private Player inputMap;
     private Vector2 hitPointPos;
     private DistanceJoint2D joint;
     private Rigidbody2D rb;
     private float hitDistance;
-    private float theta;
-    private float cos;
-    private float sin;
-    private float cosHook;
-    private float sinHook;
-    private float newX;
-    private float newY;
+    private Vector2 lauchVector;
+    private Vector3 normalRVector;
     private bool isHooking;
     private float chargeRate;
 
@@ -53,33 +49,30 @@ public class pointerController : MonoBehaviour
     {
         Vector2 mousePos = inputMap.PlayerControls.Look.ReadValue<Vector2>();
         Vector3 worldPosition = playerCamera.ScreenToWorldPoint(mousePos);
-        float playerx = player.transform.position.x;
-        float playery = player.transform.position.y;
+        Vector3 playerPos = player.transform.position;
+        
+        float angle = Vector2.SignedAngle(Vector2.right, worldPosition-playerPos);
+        transform.eulerAngles = new Vector3(0,0,angle);
 
-        Vector3 newPosition = NewPosition(playerx, playery, worldPosition.x ,worldPosition.y);
-
-        transform.eulerAngles = new Vector3(0,0,(newPosition.z/(2*Mathf.PI))*360);
-
-        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        normalRVector = Vector3.Normalize(Vector3.Normalize(worldPosition - playerPos))*5;
+        Vector3 newPos = playerPos + normalRVector;
+        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
 
         if(isHooking){
             //Setting the position of the hook
-            Vector2 midPoint = (hitPointPos + (Vector2)player.transform.position)/2;
+            Vector2 midPoint = (hitPointPos + (Vector2)playerPos)/2;
             hook.transform.position = midPoint;
             //Setting the length of the hook
-            hitDistance = Vector2.Distance(hitPointPos, (Vector2)player.transform.position);
-            hook.transform.localScale = new Vector3(hitDistance, 0.1f, 0);
+            hitDistance = Vector2.Distance(hitPointPos, (Vector2)playerPos);
+            hook.transform.localScale = new Vector3(hitDistance, 1f, 0);
 
             //Good rotation of the hook
             //find the angle of the triangle made by center, mouse, (mouseX,centerY)
-            theta = Mathf.Atan((hitPointPos.y - playery)/(hitPointPos.x - playerx));
-            //if the target is the left side of the center
-            if ((hitPointPos.x - playerx)<0){
-                theta = theta + Mathf.PI;
-            }
-            cosHook = Mathf.Cos(theta);
-            sinHook = Mathf.Sin(theta);
-            hook.transform.eulerAngles = new Vector3(0,0,(theta/(2*Mathf.PI))*360);
+            float theta = Vector2.SignedAngle(Vector2.right, hitPointPos - (Vector2)playerPos);
+            
+            Vector2 lauchVector = (hitPointPos - (Vector2)(playerPos)).normalized;
+
+            hook.transform.eulerAngles = new Vector3(0,0,theta);
 
             chargeRate += Time.deltaTime;
             if (chargeRate < chargeDelay){
@@ -104,7 +97,7 @@ public class pointerController : MonoBehaviour
 
     private void OnShoot(){
         chargeRate = 0f;
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(player.transform.position, new Vector2(cos,sin),2f,platformLayerMask);
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(player.transform.position, normalRVector, 10f, platformLayerMask);
         if(raycastHit2D){
             hitPointPos = raycastHit2D.point;
             hitDistance = raycastHit2D.distance;
@@ -129,26 +122,8 @@ public class pointerController : MonoBehaviour
         if(isHooking){
             StopShoot();
             if (chargeRate>chargeDelay) chargeRate = chargeDelay;
-            pm.Launch(new Vector2(cosHook,sinHook),(chargeRate/chargeDelay)*5);
+            pm.Launch(lauchVector,(chargeRate/chargeDelay)*50);
         }
-    }
-
-    private Vector3 NewPosition(float CenterX,float CenterY,float TargetX,float TargetY){
-
-        //find the angle of the triangle made by center, mouse, (mouseX,centerY)
-        theta = Mathf.Atan((TargetY - CenterY)/(TargetX - CenterX));
-        //if the target is the left side of the center
-        if ((TargetX - CenterX)<0){
-            theta = theta + Mathf.PI;
-        }
-
-        cos = Mathf.Cos(theta);
-        sin = Mathf.Sin(theta);
-
-        newX = player.transform.position.x + cos;
-        newY = player.transform.position.y + sin;
-
-        return new Vector3(newX,newY,theta);
     }
 
 }

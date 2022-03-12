@@ -59,18 +59,14 @@ public class PlayerMouvement : MonoBehaviour
         if(isGrounded){
             if (jumping == 1){
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                // animator.SetBool("isJumping", true);
-            }
-            else{
-                // animator.SetBool("isJumping", false);
             }
         }
     
         if(lastTouchedIsIce || hook.activeSelf){
-            rb.AddForce(new Vector2(moveDelta*iceWalkSpeed*(1-crouching/crouchMultiplier),0));
+            rb.AddForce(new Vector2(moveDelta*iceWalkSpeed,0));
         }
         else{
-            rb.velocity = new Vector2(moveDelta*walkSpeed*(1-crouching/crouchMultiplier), rb.velocity.y);
+            rb.velocity = new Vector2(moveDelta*walkSpeed, rb.velocity.y);
         }
         //check if changing direction is needed
         if (isFacingRight == -moveDelta) {
@@ -83,16 +79,6 @@ public class PlayerMouvement : MonoBehaviour
                 rb.velocity = new Vector2(0, rb.velocity.y);                
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        crouching = inputMap.PlayerControls.Crouch.ReadValue<float>();
-
-        // animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-        // animator.SetFloat("Vy", rb.velocity.y);
-        // animator.SetFloat("Crouching", crouching);
     }
     
     /**
@@ -114,6 +100,7 @@ public class PlayerMouvement : MonoBehaviour
 
     public void Launch(Vector2 LaunchVec, float launchForce){
         lastTouchedIsIce = true;
-        rb.velocity += LaunchVec*launchForce;
+        Debug.Log("Lauching");
+        rb.velocity += LaunchVec*launchForce*100;
     }
 }
