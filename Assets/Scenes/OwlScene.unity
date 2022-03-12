@@ -149,7 +149,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 586196759}
   m_Enabled: 1
-  m_CellSize: {x: 4, y: 4, z: 0}
+  m_CellSize: {x: 3.8, y: 3.8, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -206,11 +206,11 @@ MonoBehaviour:
   monsterBlockMap: {fileID: 1944399621}
   healthMap: {fileID: 1067783849}
   stone: {fileID: 6062312517562146870, guid: 3c4c0820dd30f774eb0fae1ee91dd393, type: 3}
-  fossilFuel: {fileID: 1419700741486858678, guid: f29384d4a549af54d8c43d8c1d9cdf71, type: 3}
+  fossilFuel: {fileID: 2895146999277451316, guid: 57c79e90ec44317429f6aec7f94f4f30, type: 3}
   fossil: {fileID: 3372816611873448778, guid: d36c53b432028894489081de085ac85f, type: 3}
-  bomb: {fileID: 4736760246339302590, guid: 73b857e7c846c2a48bf9d3e06773322d, type: 3}
-  monsterBlock: {fileID: 2895146999277451316, guid: 57c79e90ec44317429f6aec7f94f4f30, type: 3}
-  health: {fileID: 288751011967345146, guid: aff43b94e286905459682d5c6bf0266f, type: 3}
+  bomb: {fileID: 3372816611873448778, guid: d36c53b432028894489081de085ac85f, type: 3}
+  monsterBlock: {fileID: 3372816611873448778, guid: d36c53b432028894489081de085ac85f, type: 3}
+  health: {fileID: 3372816611873448778, guid: d36c53b432028894489081de085ac85f, type: 3}
 --- !u!1 &729365777
 GameObject:
   m_ObjectHideFlags: 0
