@@ -3,21 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //This script is put on a tile block
-//It is should be called when the player wants this block
 public class BlockBreaking : MonoBehaviour
 {
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //This is should be called when the player wants this block
     public void breakBlock(){
         //Stuff that happens when breaking the block
         switch(this.tag){

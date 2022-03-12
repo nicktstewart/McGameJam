@@ -9,8 +9,8 @@ public class TerrainGeneration : MonoBehaviour
     public float scale=1f;
     public int offset;
     public int renderDistance;
-    public int maxWidth, maxHeight, minWidth, minHeight;
-    public int newMaxWidth, newMaxHeight, newMinWidth, newMinHeight;
+    private int maxWidth, maxHeight, minWidth, minHeight;
+    private int newMaxWidth, newMaxHeight, newMinWidth, newMinHeight;
     public int width, height;
     public Tilemap stoneMap, fossilFuelMap, fossilMap, bombMap, monsterBlockMap, healthMap;
     public GameObject[] materials; //First dirt, then stone, finally gold
@@ -94,6 +94,7 @@ public class TerrainGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Rendering new blocks out of the renderDistance
         calculateBoundery();
         if(newMaxHeight>maxHeight){
             Generation(minWidth,maxHeight,maxWidth,newMaxHeight);
