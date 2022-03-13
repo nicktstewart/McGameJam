@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class DontClickURL : MonoBehaviour
 {
+    public AudioSource a;
     public void OnButtonPress()
     {
-        Application.OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        float v = PlayerPrefs.GetFloat("BGMVolume", 0.1f);
+        PlayerPrefs.SetFloat("BGMVolume", 0);
+        BGMController.bgmvolume = 0;
+        print("RICKROLL");
+        a.volume = v;
+        a.Play();
     }
 }
