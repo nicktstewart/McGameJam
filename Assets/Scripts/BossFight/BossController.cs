@@ -113,7 +113,7 @@ public class BossController : MonoBehaviour
         }
 
         if (HP.playerHp <= 0) {
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("GameOver2");
             return;
         }
 

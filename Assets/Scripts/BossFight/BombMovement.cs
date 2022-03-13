@@ -27,7 +27,7 @@ public class BombMovement : MonoBehaviour
     {
         if (collision.gameObject == player) {
             ExplosionAudio.Play();
-            DashboardController.hp -= 5;
+            DashboardController.hp -= 10;
             GameObject clone = Instantiate(explosion, transform.position, explosion.transform.rotation);
             Destroy(this.gameObject, 0f);
         }
