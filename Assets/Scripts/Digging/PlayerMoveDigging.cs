@@ -158,14 +158,14 @@ public class PlayerMoveDigging : MonoBehaviour
             Destroy(hitColliders[0].gameObject);
             yield return new WaitForSeconds(0.1f);
         }
-        else if (isDrilling && hitColliders[0].gameObject != this.gameObject)
+        else if (hitColliders[0].gameObject != this.gameObject)
         {
             GameObject block = hitColliders[0].gameObject;
             isBreaking = true;
             noItemInBlock = true;
             particles.SetActive(true);
             yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
-            if (isDrilling && noItemInBlock) transform.position = new Vector3(x, y, 0);
+            if (noItemInBlock) transform.position = new Vector3(x, y, 0);
             DashboardController.hp -= 1;
             particles.SetActive(false);
             isBreaking = false;

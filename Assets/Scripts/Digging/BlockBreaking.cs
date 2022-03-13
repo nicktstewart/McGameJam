@@ -45,19 +45,16 @@ public class BlockBreaking : MonoBehaviour
                 afterWaitTime = foundFossil;
                 break;
         }
-        Debug.Log(breakTime);
         //kill the gameobject
         StartCoroutine(KillBlock(breakTime));
         return breakTime;
     }
     IEnumerator KillBlock(float waitTime){
         yield return new WaitForSeconds(waitTime);
-        if(PlayerMoveDigging.isDrilling){
-            posInGrid = transform.parent.GetComponent<Grid>().WorldToCell(transform.position);
-            TerrainGeneration.gridMap[posInGrid] = new int[2] {-1,0};
-            afterWaitTime();
-            Destroy(gameObject);
-        }
+        posInGrid = transform.parent.GetComponent<Grid>().WorldToCell(transform.position);
+        TerrainGeneration.gridMap[posInGrid] = new int[2] {-1,0};
+        afterWaitTime();
+        Destroy(gameObject);
     }
 
     void nothing(){}

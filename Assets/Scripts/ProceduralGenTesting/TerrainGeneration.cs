@@ -134,10 +134,20 @@ public class TerrainGeneration : MonoBehaviour
 
         for(int x=newMinWidth; x<newMaxWidth; x++){
             for(int y=newMinHeight; y<newMaxHeight; y++){
+                //Blackout
+                // bool hasNoLight = true;
+                // for (int initX = x-1; initX < x+1; x++){
+                //     for(int initY = y-1; initY < y+1; y++){
+                //         if(gridMap[new Vector3Int(x, y, 0)][0] == -1) hasNoLight = false;
+                //     }
+                // }
+                // if(hasNoLight) spawnTile(8,x,y,);
+
+                int[] indexAndTag = gridMap[new Vector3Int(x, y, 0)];
                 Vector3 worldPos = thisGrid.CellToWorld(new Vector3Int(x, y, 0));
                 Collider2D[] hitColliders = Physics2D.OverlapPointAll((Vector2)worldPos);
                 if(hitColliders.Length == 0){
-                    int[] indexAndTag = gridMap[new Vector3Int(x, y, 0)];
+                    
                     if(indexAndTag[0] != -1) spawnTile(indexAndTag[0], x, y, tagArray[indexAndTag[1]]);
                 }
             }
