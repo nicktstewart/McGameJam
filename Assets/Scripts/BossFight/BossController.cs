@@ -84,7 +84,7 @@ public class BossController : MonoBehaviour
 
     void EndGame()
     {
-
+        SceneManager.LoadScene("Lore3");
     }
 
     void EndPhase()
