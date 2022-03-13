@@ -26,6 +26,8 @@ public class BossController : MonoBehaviour
     public AudioSource RoarAudio;
     [SerializeField]
     public AudioSource ExplosionAudio;
+    [SerializeField]
+    public AudioSource ClatterAudio;
 
     private bool active = false;
     private const float playerDistanceMin = 20f;
@@ -44,6 +46,9 @@ public class BossController : MonoBehaviour
 
     private int attackPatternIndex = 0;
 
+    public static int partsAlive = 13;
+    private bool defeated = false;
+
     void Start()
     {
         BombMovement.staticSetup(player, ExplosionAudio);
@@ -52,6 +57,7 @@ public class BossController : MonoBehaviour
         MusicPaused.Stop();
         RoarAudio.Stop();
         ExplosionAudio.Stop();
+        ClatterAudio.Stop();
         currentPhase = MasterPhase.NULL;
 
         DashboardController.hasSkull = 1;
@@ -67,6 +73,17 @@ public class BossController : MonoBehaviour
     void BiteUp()
     {
         BroadcastMessage("BiteUpChild");
+    }
+
+    void Defeat()
+    {
+        startTime = Time.time;
+        defeated = true;
+    }
+
+    void EndGame()
+    {
+
     }
 
     void EndPhase()
@@ -88,6 +105,12 @@ public class BossController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (defeated) {
+            if (Time.time - startTime > 5) EndGame();
+            return;
+        }
+
         if (!active && Vector3.Distance(transform.position, player.transform.position) <= playerDistanceMin) {
             active = true;
             startTime = Time.time;
@@ -103,6 +126,15 @@ public class BossController : MonoBehaviour
                 
         if (duration != -1 && Time.time - startTime > duration) {
             EndPhase();
+        }
+
+        if (partsAlive == 0) {
+            partsAlive = -1;
+            Music.Stop();
+            MusicPaused.Stop();
+            BroadcastMessage("BreakJoints");
+            ClatterAudio.Play();
+            Defeat();
         }
     }
 }

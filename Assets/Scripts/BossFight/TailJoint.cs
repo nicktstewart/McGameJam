@@ -7,10 +7,12 @@ public class TailJoint : MonoBehaviour
     private HingeJoint2D hinge;
     public GameObject drill;
 
+    private bool whipFlag = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        hinge = GetComponent<HingeJoint2D>();        
+        hinge = GetComponent<HingeJoint2D>();
     }
 
     void Halt()
@@ -26,19 +28,30 @@ public class TailJoint : MonoBehaviour
         hinge.useMotor = true;
     }
 
+    void DownWhip()
+    {
+        JointMotor2D motor = hinge.motor;
+        motor.motorSpeed = 100;
+        hinge.motor = motor;
+        hinge.useMotor = true;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        print("Collided");
-        print(collision.gameObject);
-        if (collision.gameObject == drill) {
-            print("Collided drill");
-            Whip();
+        if (!whipFlag && collision.gameObject == drill) {
+            whipFlag = true;
+            DownWhip();
         }
     }
 
-
     void FixedUpdate()
     {
-        
+        print(hinge.limitState);
+        if (whipFlag && hinge.limitState == JointLimitState2D.LowerLimit) {
+            DownWhip();
+        }
+        else if (whipFlag && hinge.limitState == JointLimitState2D.UpperLimit) {
+            Whip();
+        }
     }
 }
