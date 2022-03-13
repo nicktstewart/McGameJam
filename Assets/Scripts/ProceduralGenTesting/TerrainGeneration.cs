@@ -134,6 +134,7 @@ public class TerrainGeneration : MonoBehaviour
 
         for(int x=newMinWidth; x<newMaxWidth; x++){
             for(int y=newMinHeight; y<newMaxHeight; y++){
+                Vector3 worldPos = thisGrid.CellToWorld(new Vector3Int(x, y, 0));
                 //Blackout
                 // bool hasNoLight = true;
                 // for (int initX = x-1; initX < x+1; x++){
@@ -141,10 +142,11 @@ public class TerrainGeneration : MonoBehaviour
                 //         if(gridMap[new Vector3Int(x, y, 0)][0] == -1) hasNoLight = false;
                 //     }
                 // }
-                // if(hasNoLight) spawnTile(8,x,y,);
+                // if(hasNoLight) {
+                //     Collider2D[] hitColliders = Physics2D.OverlapPointAll((Vector2)worldPos);
+                // }
 
                 int[] indexAndTag = gridMap[new Vector3Int(x, y, 0)];
-                Vector3 worldPos = thisGrid.CellToWorld(new Vector3Int(x, y, 0));
                 Collider2D[] hitColliders = Physics2D.OverlapPointAll((Vector2)worldPos);
                 if(hitColliders.Length == 0){
                     

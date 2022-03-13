@@ -16,7 +16,7 @@ public class PlayerShoot : MonoBehaviour
         }
         inputMap.Enable();
 
-        inputMap.PlayerControls.Launch.performed += eventCtx => OnShoot();
+        inputMap.PlayerControls.Shoot.performed += eventCtx => OnShoot();
     }
     
     // Start is called before the first frame update
