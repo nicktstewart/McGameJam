@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class DontClickURL : MonoBehaviour
 {
+    public AudioSource a;
     public void OnButtonPress()
     {
-        Application.OpenURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        print("RICKROLL");
+        a.Play();
     }
 }
