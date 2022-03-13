@@ -58,7 +58,6 @@ public class PlayerMoveDigging : MonoBehaviour
             if (moveX > 0 && xReady)
             {
                 StartCoroutine(MoveBlock(transform.position.x + 3.8f, transform.position.y, 20));
-                transform.localScale = new Vector3(1, 1, 1);
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 coolDown = 10;
                 xReady = false;
@@ -66,8 +65,7 @@ public class PlayerMoveDigging : MonoBehaviour
             else if (moveX < 0 && xReady)
             {
                 StartCoroutine(MoveBlock(transform.position.x - 3.8f, transform.position.y, 20));
-                transform.localScale = new Vector3(-1, 1, 1);
-                transform.eulerAngles = new Vector3(0, 0, 0);
+                transform.eulerAngles = new Vector3(0, 180, 0);
                 coolDown = 10;
                 xReady = false;
             }
@@ -76,7 +74,6 @@ public class PlayerMoveDigging : MonoBehaviour
             if (moveY > 0 && yReady)
             {
                 StartCoroutine(MoveBlock(transform.position.x, transform.position.y + 3.8f, 20));
-                transform.localScale = new Vector3(1, 1, 1);
                 transform.eulerAngles = new Vector3(0, 0, 90);
                 coolDown = 10;
                 yReady = false;
@@ -84,8 +81,7 @@ public class PlayerMoveDigging : MonoBehaviour
             else if (moveY < 0 && yReady)
             {
                 StartCoroutine(MoveBlock(transform.position.x, transform.position.y - 3.8f, 20));
-                transform.localScale = new Vector3(-1, 1, 1);
-                transform.eulerAngles = new Vector3(0, 0, 90);
+                transform.eulerAngles = new Vector3(0, 180, -90);
                 coolDown = 10;
                 yReady = false;
             }

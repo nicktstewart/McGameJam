@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
+    public int hp = 3;
     private GameObject player;
     public GameObject fireBall;
     private bool readyToShoot;
@@ -42,6 +43,11 @@ public class Snake : MonoBehaviour
         if(readyToShoot){
             readyToShoot = false; // blocks snake from shooting
             StartCoroutine(Shoot());
+        }
+
+        if(hp == 0){
+            TerrainGeneration.gridMap[TerrainGeneration.ConvertToGridCoord(transform.position)] = new int[2]{-1,0};
+            Destroy(gameObject);
         }
     }
 
