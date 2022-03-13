@@ -17,11 +17,11 @@ public class BlockBreaking : MonoBehaviour
         switch(tag){
             case "Health":
                 //Code executed when breaking a HEALTH block
-                breakTime = 1f;
+                breakTime = 1.5f;
                 afterWaitTime = addHealth;
                 break;
 
-            case "FossiFuel":
+            case "FossilFuel":
                 //Code executed when breaking a FOSSIL FUEL block
                 breakTime = 1f;
                 afterWaitTime = addFossilFuel;
@@ -41,10 +41,11 @@ public class BlockBreaking : MonoBehaviour
 
             case "Fossil":
                 //Code executed when breaking a FOSSIL block
-                breakTime = 1f;
+                breakTime = 1.5f;
                 afterWaitTime = foundFossil;
                 break;
         }
+        Debug.Log(breakTime);
         //kill the gameobject
         StartCoroutine(KillBlock(breakTime));
         return breakTime;

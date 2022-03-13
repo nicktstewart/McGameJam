@@ -166,6 +166,7 @@ public class PlayerMoveDigging : MonoBehaviour
             particles.SetActive(true);
             yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
             if (isDrilling && noItemInBlock) transform.position = new Vector3(x, y, 0);
+            DashboardController.hp -= 1;
             particles.SetActive(false);
             isBreaking = false;
         }

@@ -73,7 +73,7 @@ public class TerrainGeneration : MonoBehaviour
         if(randomNoise > 0.85) choice = 1;
         else if(randomNoise<0.805 && randomNoise>0.795) choice = 5;
         else if(randomNoise<0.501 && randomNoise>0.499) choice = 3;
-        else if(randomNoise<0.308 && randomNoise>0.292) choice = 1;
+        else if(randomNoise<0.37 && randomNoise>0.23) choice = 1;
         else if(randomNoise < 0.15) choice = 4;
         return choice;
     }
