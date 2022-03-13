@@ -25,7 +25,7 @@ public class BombMovement : MonoBehaviour
         if (collision.gameObject == player) {
             ExplosionAudio.Play();
             DashboardController.hp -= 20;
-            Object.Destroy(this.gameObject);
+            Destroy(this.gameObject, 0f);
         }
     }
 
