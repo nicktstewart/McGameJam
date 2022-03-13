@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireBall : MonoBehaviour
 {
+    public GameObject explotionSound;
     private bool canMove;
     // Start is called before the first frame update
     void Start()
@@ -14,19 +15,14 @@ public class FireBall : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(canMove) StartCoroutine(Move());
-    }
-    IEnumerator Move(){
-        canMove = false;
-        Vector3 nextPos = transform.position - transform.right*3.8f;
-        yield return new WaitForSeconds(0.5f);
-        bool noCollision = CheckNextBlock(nextPos);
+        Vector3 nextPos = transform.position - transform.right*Time.time/75;
+        bool noCollision = CheckNextBlock(nextPos - transform.right);
         if (noCollision) transform.position = nextPos;
-        canMove = true;
+        // if(canMove) StartCoroutine(Move());
     }
     bool CheckNextBlock(Vector3 nextPos){
         Collider2D[] hitColliders = Physics2D.OverlapPointAll((Vector2)(nextPos));
-        if (hitColliders.Length == 0) return true;
+        if (hitColliders.Length == 0 || hitColliders[0].transform == transform.parent) return true;
         else{
             for (int i = 0; i<hitColliders.Length; i++){
                 if(hitColliders[i].CompareTag("Player")){
@@ -37,6 +33,8 @@ public class FireBall : MonoBehaviour
                     Destroy(hitColliders[i].gameObject);
                 }
             }
+            GameObject SFX = Instantiate(explotionSound, transform.position, Quaternion.identity);
+            Destroy(SFX, 2f);
             Destroy(gameObject);
             return false;
         }

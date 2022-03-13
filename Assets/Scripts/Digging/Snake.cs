@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
+    
     public int hp = 3;
     private GameObject player;
     public GameObject fireBall;
@@ -54,7 +55,10 @@ public class Snake : MonoBehaviour
     private IEnumerator Shoot(){
         yield return new WaitForSeconds(3f);
         bool canShoot = Physics2D.OverlapPointAll((Vector2)(transform.position - transform.right*3.8f)).Length == 0;
-        if(canShoot) Instantiate(fireBall, transform.position + transform.right*(-3.8f), transform.rotation);
+        if(canShoot){
+            GameObject FireBall = Instantiate(fireBall, transform.position + transform.right*(-3f), transform.rotation);
+            FireBall.transform.parent = transform;
+        }
         readyToShoot = true;
     }
 }

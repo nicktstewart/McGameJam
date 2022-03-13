@@ -122,4 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8a007e40029384fa6b583e887cbfcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snakeSound: {fileID: 9084105454641527356, guid: f3333115142d60247b22ea9dfe81f223, type: 3}
+  hp: 3
   fireBall: {fileID: 7961931522873075535, guid: c716a05963beb9c4d88f14c867642748, type: 3}
