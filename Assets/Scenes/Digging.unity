@@ -258,7 +258,7 @@ MonoBehaviour:
   scale: 3
   offset: 495
   renderDistanceX: 6
-  renderDistanceY: 4
+  renderDistanceY: 6
   width: 4
   height: 4
   materials:

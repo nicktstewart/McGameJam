@@ -10,14 +10,14 @@ public class BlockBreaking : MonoBehaviour
     Vector3Int posInGrid;
     //This is should be called when the player wants this block
     public float breakBlock(){
-        float breakTime = 0.1f;
+        float breakTime = 0.25f;
         
         afterWaitTime = nothing;
         //Stuff that happens when breaking the block
         switch(tag){
             case "Health":
                 //Code executed when breaking a HEALTH block
-                breakTime = 0.5f;
+                breakTime = 1f;
                 afterWaitTime = addHealth;
                 break;
 
