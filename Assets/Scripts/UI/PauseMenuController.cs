@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PauseMenuController : MonoBehaviour
         BGMController.isPaused = false;
         float bgm_volume = PlayerPrefs.GetFloat("BGMVolume", 0.1f);
         BGMController.bgmvolume = bgm_volume;
+        
     }
 
     private void OnEnable()
@@ -29,8 +31,21 @@ public class PauseMenuController : MonoBehaviour
         inputMap.Enable();
 
         inputMap.PlayerControls.Escape.performed += eventCtx => OnPause();
+        inputMap.PlayerControls.Shoot.performed += eventCtx => Clicked();
     }
 
+    void Clicked()
+    {
+        if(!isOpen && SceneManager.GetActiveScene().name == "Menu")
+        {
+            StartGame();
+        }
+    }
+
+    void StartGame()
+    {
+        SceneManager.LoadScene("Digging");
+    }
 
     void OnPause()
     {
