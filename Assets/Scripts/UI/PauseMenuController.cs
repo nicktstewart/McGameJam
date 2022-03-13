@@ -9,7 +9,10 @@ public class PauseMenuController : MonoBehaviour
 {
     private Player inputMap;
     private bool isOpen;
-    public Image fadeImage;
+    public GameObject fadeBlack;
+    private Image fadeImage;
+    private string sceneName;
+
 
     void Start()
     {
@@ -17,11 +20,15 @@ public class PauseMenuController : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+        sceneName = SceneManager.GetActiveScene().name;
+        if(sceneName == "Menu")
+            fadeBlack.SetActive(false);
         isOpen = false;
         BGMController.isPaused = false;
         float bgm_volume = PlayerPrefs.GetFloat("BGMVolume", 0.1f);
         BGMController.bgmvolume = bgm_volume;
-        
+        if (sceneName == "Menu")
+            fadeImage = fadeBlack.GetComponent<Image>();
     }
 
     private void OnEnable()
@@ -38,6 +45,7 @@ public class PauseMenuController : MonoBehaviour
 
     void Clicked()
     {
+        print("Click");
         if(!isOpen && SceneManager.GetActiveScene().name == "Menu")
         {
             StartCoroutine(FadeToBlack());
@@ -46,12 +54,21 @@ public class PauseMenuController : MonoBehaviour
 
     IEnumerator FadeToBlack()
     {
+        fadeBlack.SetActive(true);
+        OnDisable();
+        
         for (int i = 0; i < 30; i++)
         {
             fadeImage.color = new Color(1, 1, 1, i / 30.0f);
             yield return new WaitForSeconds(0.02f);
         }
-        SceneManager.LoadScene("Lore1");
+        SceneManager.LoadScene("Lore1", LoadSceneMode.Single);
+    }
+
+    void OnDisable()
+    {
+        inputMap.Disable();
+        inputMap.PlayerControls.Shoot.performed -= eventCtx => Clicked();
     }
 
     void OnPause()

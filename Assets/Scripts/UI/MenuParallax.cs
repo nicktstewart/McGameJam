@@ -24,7 +24,7 @@ public class MenuParallax : MonoBehaviour
         Vector2 mousePos = inputMap.PlayerControls.Look.ReadValue<Vector2>();
         Vector2 middle = new Vector2(Screen.width/2, Screen.height/2);
         Vector2 distance = new Vector2((mousePos.x - middle.x) / depth, (mousePos.y - middle.y) / depth);
-        print(distance);
+        //print(distance);
         rt.position = new Vector2(middle.x + distance.x, middle.y + distance.y);
         
     }

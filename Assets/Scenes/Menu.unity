@@ -568,7 +568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1151693418
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1245,8 +1245,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -60, y: 7.3}
-  m_SizeDelta: {x: 183.7923, y: 50}
+  m_AnchoredPosition: {x: -57.071766, y: 7.3}
+  m_SizeDelta: {x: 189.6489, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532418137069339092
 MonoBehaviour:
@@ -1260,7 +1260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ced27a13c214e449a156bb73f59ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depth: 50
+  depth: 70
   rt: {fileID: 1532418137069339089}
 --- !u!114 &1532418137069339094
 MonoBehaviour:
@@ -1701,7 +1701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62cc587788e445648aa750295bceed1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 1151693419}
+  fadeBlack: {fileID: 1151693417}
 --- !u!82 &4209209956969763021
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1934,6 +1934,7 @@ GameObject:
   - component: {fileID: 4209209956969763024}
   - component: {fileID: 4209209956969763023}
   - component: {fileID: 4209209956969763021}
+  - component: {fileID: 4209209956969763026}
   m_Layer: 0
   m_Name: BGM_Menu
   m_TagString: Untagged
@@ -1941,6 +1942,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4209209956969763026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209209956969763025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748e4fd30afa7a845990c31b248e07b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6780405821070074454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2043,8 +2056,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -60, y: -82.7}
-  m_SizeDelta: {x: 181.94, y: 50}
+  m_AnchoredPosition: {x: -57.672, y: -82.7}
+  m_SizeDelta: {x: 186.59, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6780405821070074462
 MonoBehaviour:
@@ -2058,7 +2071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ced27a13c214e449a156bb73f59ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depth: 50
+  depth: 70
   rt: {fileID: 6780405821070074457}
 --- !u!114 &6780405821476357106
 MonoBehaviour:
