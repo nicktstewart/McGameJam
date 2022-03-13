@@ -5,6 +5,7 @@ using UnityEngine;
 //This script is put on a tile block
 public class BlockBreaking : MonoBehaviour
 {
+    public GameObject snakeSound;
     delegate void AfterWaitTime();
     AfterWaitTime afterWaitTime;
     Vector3Int posInGrid;
@@ -74,6 +75,8 @@ public class BlockBreaking : MonoBehaviour
         //spawn Monster
         PlayerMoveDigging.noItemInBlock = false;
         TerrainGeneration.gridMap[posInGrid] = new int[2] {3,6};
+        GameObject SFX = Instantiate(snakeSound, transform.position, Quaternion.identity);
+        Destroy(SFX, 4f);
     }
     void foundFossil(){
         PlayerMoveDigging.noItemInBlock = false;

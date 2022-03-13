@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef1f0a0d8f94cd4c903cbd3de63cd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snakeSound: {fileID: 9084105454641527356, guid: f3333115142d60247b22ea9dfe81f223, type: 3}
 --- !u!61 &7868195143636121751
 BoxCollider2D:
   m_ObjectHideFlags: 0

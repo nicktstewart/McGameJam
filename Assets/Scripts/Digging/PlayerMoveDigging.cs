@@ -7,6 +7,7 @@ public class PlayerMoveDigging : MonoBehaviour
 {
     public GameObject emptyBoi;
     public GameObject moreHealthMusic;
+    public GameObject miningSound;
     public float speed;
     public static bool isDrilling;
     public static bool isMoving;
@@ -170,10 +171,12 @@ public class PlayerMoveDigging : MonoBehaviour
             isBreaking = true;
             noItemInBlock = true;
             particles.SetActive(true);
+            GameObject breakingSound = Instantiate(miningSound,  new Vector3(x,y,0),Quaternion.identity);
             yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
             if (noItemInBlock) transform.position = new Vector3(x, y, 0);
             DashboardController.hp -= 1;
             particles.SetActive(false);
+            Destroy(breakingSound);
             isBreaking = false;
         }
         
