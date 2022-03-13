@@ -51,7 +51,7 @@ public class DashboardController : MonoBehaviour
             Arm2.SetActive(true);
         }
 
-        if(hasSkull >= 1 && hasArm >= 2 && hasLeg >= 2)
+        if(hasSkull >= 1 && hasArm >= 2 && hasLeg >= 2 && !SceneManager.GetActiveScene().name.Equals("BossFight"))
         {
             StartBossFight();
         }

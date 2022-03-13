@@ -7,8 +7,7 @@ public enum MasterPhase {
     NULL,
     Idle,
     BiteRage,
-    RoarTaunt,
-    TailAttack
+    RoarTaunt
 }
 
 public class BossController : MonoBehaviour
@@ -25,6 +24,8 @@ public class BossController : MonoBehaviour
     public AudioSource MusicPaused;
     [SerializeField]
     public AudioSource RoarAudio;
+    [SerializeField]
+    public AudioSource ExplosionAudio;
 
     private bool active = false;
     private const float playerDistanceMin = 20f;
@@ -45,10 +46,17 @@ public class BossController : MonoBehaviour
 
     void Start()
     {
+        BombMovement.staticSetup(player, ExplosionAudio);
+
         Music.Stop();
         MusicPaused.Stop();
         RoarAudio.Stop();
+        ExplosionAudio.Stop();
         currentPhase = MasterPhase.NULL;
+
+        DashboardController.hasSkull = 1;
+        DashboardController.hasLeg = 2;
+        DashboardController.hasArm = 2;
     }
 
     void BiteDown()
