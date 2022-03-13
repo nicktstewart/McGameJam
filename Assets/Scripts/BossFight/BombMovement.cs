@@ -9,6 +9,9 @@ public class BombMovement : MonoBehaviour
     private static GameObject player;
     private static AudioSource ExplosionAudio;
 
+    [SerializeField]
+    public GameObject explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +27,8 @@ public class BombMovement : MonoBehaviour
     {
         if (collision.gameObject == player) {
             ExplosionAudio.Play();
-            DashboardController.hp -= 10;
+            DashboardController.hp -= 5;
+            GameObject clone = Instantiate(explosion, transform.position, explosion.transform.rotation);
             Destroy(this.gameObject, 0f);
         }
     }
