@@ -59,6 +59,6 @@ public class DashboardController : MonoBehaviour
 
     void StartBossFight()
     {
-        SceneManager.LoadScene("BossFight");
+        SceneManager.LoadScene("Lore2");
     }
 }

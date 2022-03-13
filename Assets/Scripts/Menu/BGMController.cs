@@ -9,6 +9,11 @@ public class BGMController : MonoBehaviour
     public static float bgmvolume;
     public static bool isPaused;
 
+    void Start()
+    {
+        bgmvolume = PlayerPrefs.GetFloat("BGMVolume", 0.1f);
+    }
+
     void Update()
     {
 
