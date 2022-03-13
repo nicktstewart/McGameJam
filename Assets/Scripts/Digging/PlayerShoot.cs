@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-    public FireBall bulletScript;
     public GameObject bullet;
     private Player inputMap;
     private bool readyToShoot;
@@ -33,11 +32,13 @@ public class PlayerShoot : MonoBehaviour
     }
     void OnShoot()
     {
+        // bool canShoot = Physics2D.OverlapPointAll((Vector2)(transform.position + transform.right*3.8f)).Length == 0;
         if (readyToShoot) StartCoroutine(Shoot());
     }
     IEnumerator Shoot(){
         readyToShoot = false;
+        Instantiate(bullet, transform.position,transform.rotation);
         yield return new WaitForSeconds(0.5f);
-        Instantiate(bullet, transform.position + transform.right*2, transform.rotation);
+        readyToShoot = true;
     }
 }

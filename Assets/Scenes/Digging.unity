@@ -258,7 +258,7 @@ MonoBehaviour:
   scale: 3
   offset: 495
   renderDistanceX: 6
-  renderDistanceY: 4
+  renderDistanceY: 6
   width: 4
   height: 4
   materials:
@@ -283,8 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563166291bd37894ca7d32054e29ae2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletScript: {fileID: 0}
-  bullet: {fileID: 4765699427937391317, guid: b84c864b92ba6704da438d821345857f, type: 3}
+  bullet: {fileID: 5407356641982929129, guid: 8550f9245ae18874db8325f54ffe1b37, type: 3}
 --- !u!4 &808056768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1398941710235730734, guid: 2057dbf445d2bd3418e04356e71919d3, type: 3}
