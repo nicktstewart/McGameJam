@@ -14,7 +14,7 @@ public class TerrainGeneration : MonoBehaviour
     public int width, height;
     public GameObject[] materials; //First dirt, then stone, finally gold
     private Vector3Int posInGrid = Vector3Int.zero;
-    private Grid thisGrid;
+    static private Grid thisGrid;
     [HideInInspector] public static Dictionary<Vector3Int,int[]> gridMap = new Dictionary<Vector3Int,int[]>();
     private string[] tagArray = new string[7] {"Untagged","FossilFuel","Bomb","Fossil","Monster","Health","Snake"};
     // Start is called before the first frame update
@@ -28,6 +28,7 @@ public class TerrainGeneration : MonoBehaviour
         minWidth = newMinWidth;
 
         Generation(minWidth, minHeight, maxWidth, maxHeight);
+        gridMap[new Vector3Int(0,0,0)] = new int[2] {-1,0};
     }
 
     //Method that generates the map from the point (X,Y) to the point (Xo,Yo)
@@ -149,5 +150,8 @@ public class TerrainGeneration : MonoBehaviour
         for(int i = 0; i<hitColliders.Length; i++){
             Destroy(hitColliders[i].gameObject);
         }
+    }
+    public static Vector3Int ConvertToGridCoord(Vector3 WorldPos){
+        return thisGrid.WorldToCell(WorldPos);
     }
 }

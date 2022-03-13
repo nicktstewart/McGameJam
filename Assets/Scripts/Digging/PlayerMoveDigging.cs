@@ -136,6 +136,7 @@ public class PlayerMoveDigging : MonoBehaviour
         }
         else if(hitColliders[0].tag == "Snake"){
             DashboardController.hp -= 10;
+            yield return new WaitForSeconds(0.1f);
 
         }
         else if (isDrilling && hitColliders[0].gameObject != this.gameObject)
