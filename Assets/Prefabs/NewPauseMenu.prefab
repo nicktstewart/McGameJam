@@ -374,8 +374,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2673467593848987945}
   - component: {fileID: 2673467593848987951}
-  - component: {fileID: 2673467593848987950}
   - component: {fileID: 2673467593848987948}
+  - component: {fileID: 2080227827508814016}
   m_Layer: 5
   m_Name: SFXVolume
   m_TagString: Untagged
@@ -456,19 +456,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2673467593848987950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2673467593848987944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80636970c9077c441b1d563b1d6416ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmSlider: {fileID: 2673467593848987951}
 --- !u!114 &2673467593848987948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +470,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   depth: 100
   rt: {fileID: 2673467593848987945}
+--- !u!114 &2080227827508814016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2673467593848987944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1162f19b77caeff489f5c9f3b921edf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxSlider: {fileID: 2673467593848987951}
 --- !u!1 &2673467594124509873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,6 +1412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62cc587788e445648aa750295bceed1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeBlack: {fileID: 0}
 --- !u!1 &7946313034205839964
 GameObject:
   m_ObjectHideFlags: 0

@@ -407,8 +407,8 @@ GameObject:
   m_Component:
   - component: {fileID: 474410608116017889}
   - component: {fileID: 474410608116017895}
-  - component: {fileID: 474410608116017894}
   - component: {fileID: 474410608116017892}
+  - component: {fileID: 156248067304173994}
   m_Layer: 5
   m_Name: SFXVolume
   m_TagString: Untagged
@@ -489,19 +489,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &474410608116017894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474410608116017888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80636970c9077c441b1d563b1d6416ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmSlider: {fileID: 474410608116017895}
 --- !u!114 &474410608116017892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,6 +503,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   depth: 100
   rt: {fileID: 474410608116017889}
+--- !u!114 &156248067304173994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474410608116017888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1162f19b77caeff489f5c9f3b921edf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxSlider: {fileID: 474410608116017895}
 --- !u!1 &474410608349541608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,6 +1713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62cc587788e445648aa750295bceed1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeBlack: {fileID: 0}
 --- !u!1 &5605179339895441768
 GameObject:
   m_ObjectHideFlags: 0
