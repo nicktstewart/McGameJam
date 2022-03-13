@@ -55,6 +55,17 @@ public class DashboardController : MonoBehaviour
         {
             StartBossFight();
         }
+
+        if(HP.playerHp == 0)
+        {
+            StartCoroutine(Death());
+        }
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("GameOver");
     }
 
     void StartBossFight()
