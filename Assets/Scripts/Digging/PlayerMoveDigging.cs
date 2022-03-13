@@ -147,6 +147,17 @@ public class PlayerMoveDigging : MonoBehaviour
             transform.position = new Vector3(x, y, 0);
             yield return new WaitForSeconds(0.1f);
         }
+        else if (hitColliders[0].CompareTag("FossilPart")){
+            if(DashboardController.hasLeg==0) DashboardController.hasLeg ++;
+            else if(DashboardController.hasLeg==1) DashboardController.hasLeg ++;
+            // else if(DashboardController.hasSonar) DashboardController.hasLeg ++;
+            else if (DashboardController.hasArm<=1) DashboardController.hasArm ++;
+            // else if (DashboardController.hasArm<=2) DashboardController.hasGrappling = true;
+            else DashboardController.hasSkull ++;
+            TerrainGeneration.gridMap[TerrainGeneration.ConvertToGridCoord(new Vector3(x,y,0))] = new int[2] {-1,0};
+            Destroy(hitColliders[0].gameObject);
+            yield return new WaitForSeconds(0.1f);
+        }
         else if (isDrilling && hitColliders[0].gameObject != this.gameObject)
         {
             GameObject block = hitColliders[0].gameObject;

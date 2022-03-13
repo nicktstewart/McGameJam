@@ -12,6 +12,8 @@ TagManager:
   - ice
   - Air
   - Snake
+  - Heart
+  - FossilPart
   layers:
   - Default
   - TransparentFX

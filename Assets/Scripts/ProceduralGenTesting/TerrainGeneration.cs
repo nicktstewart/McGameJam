@@ -16,7 +16,7 @@ public class TerrainGeneration : MonoBehaviour
     private Vector3Int posInGrid = Vector3Int.zero;
     static private Grid thisGrid;
     [HideInInspector] public static Dictionary<Vector3Int,int[]> gridMap = new Dictionary<Vector3Int,int[]>();
-    private string[] tagArray = new string[8] {"Untagged","FossilFuel","Bomb","Fossil","Monster","Health","Snake","Heart"};
+    private string[] tagArray = new string[9] {"Untagged","FossilFuel","Bomb","Fossil","Monster","Health","Snake","Heart","FossilPart"};
     // Start is called before the first frame update
     void Start()
     {
@@ -72,7 +72,7 @@ public class TerrainGeneration : MonoBehaviour
         int choice = 0;
         if(randomNoise > 0.85) choice = 1;
         else if(randomNoise<0.805 && randomNoise>0.795) choice = 5;
-        else if(randomNoise<0.5002 && randomNoise>0.4998) choice = 3;
+        else if(randomNoise<0.501 && randomNoise>0.499) choice = 3;
         else if(randomNoise<0.308 && randomNoise>0.292) choice = 1;
         else if(randomNoise < 0.15) choice = 4;
         return choice;

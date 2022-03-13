@@ -78,12 +78,13 @@ public class BlockBreaking : MonoBehaviour
         TerrainGeneration.gridMap[posInGrid] = new int[2] {3,6};
     }
     void foundFossil(){
-        if (DashboardController.hasLeg==0) DashboardController.hasLeg ++;
-        else if(DashboardController.hasLeg==1) DashboardController.hasLeg ++;
+        PlayerMoveDigging.noItemInBlock = false;
+        if (DashboardController.hasLeg==0) TerrainGeneration.gridMap[posInGrid] = new int[2] {5,8};
+        else if(DashboardController.hasLeg==1) TerrainGeneration.gridMap[posInGrid] = new int[2] {5,8};
         // else if(DashboardController.hasSonar) DashboardController.hasLeg ++;
-        else if (DashboardController.hasArm<=1) DashboardController.hasArm ++;
+        else if (DashboardController.hasArm<=1) TerrainGeneration.gridMap[posInGrid] = new int[2] {6,8};
         // else if (DashboardController.hasArm<=2) DashboardController.hasGrappling = true;
-        else DashboardController.hasSkull ++;
+        else TerrainGeneration.gridMap[posInGrid] = new int[2] {7,8};
         
     }
 }
