@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MasterPhase {
     NULL,
@@ -83,7 +84,7 @@ public class BossController : MonoBehaviour
 
     void EndGame()
     {
-
+        SceneManager.LoadScene("Lore3");
     }
 
     void EndPhase()
