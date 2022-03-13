@@ -20,6 +20,7 @@ public class PlayerMouvement : MonoBehaviour
     public float lauchMultiplier = 2f;
 
     public float leftBound = -110f;
+    public float rightBound = 10f;
 
     // public Animator animator;
     public GameObject hook;
@@ -85,6 +86,7 @@ public class PlayerMouvement : MonoBehaviour
         }
 
         if (rb.position.x < leftBound) rb.velocity = new Vector2(walkSpeed, 0f);
+        if (rb.position.x > rightBound) rb.velocity = new Vector2(-walkSpeed, 0f);
     }
     
     /**

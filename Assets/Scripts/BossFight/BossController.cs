@@ -7,8 +7,7 @@ public enum MasterPhase {
     NULL,
     Idle,
     BiteRage,
-    RoarTaunt,
-    TailAttack
+    RoarTaunt
 }
 
 public class BossController : MonoBehaviour
