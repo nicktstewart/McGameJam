@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HP : MonoBehaviour
 {
@@ -11,11 +13,7 @@ public class HP : MonoBehaviour
     public int initialX;
     public int initialY;
 
-    void Start()
-    {
-        
-    }
-
+    public static GameObject fadeBlack;
 
 
     void FixedUpdate()
@@ -38,6 +36,13 @@ public class HP : MonoBehaviour
 
     void Death()
     {
+        StartCoroutine(FadeToBlack());
+    }
 
+    IEnumerator FadeToBlack()
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(1);
+        SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
     }
 }
