@@ -13,7 +13,7 @@ public class BlockBreaking : MonoBehaviour
         
         afterWaitTime = nothing;
         //Stuff that happens when breaking the block
-        switch(this.tag){
+        switch(tag){
             case "Health":
                 //Code executed when breaking a HEALTH block
                 breakTime = 0.5f;
@@ -52,7 +52,9 @@ public class BlockBreaking : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         if(PlayerMoveDigging.isDrilling){
             afterWaitTime();
-            Destroy(this.gameObject);
+            Vector3Int posInGrid = transform.parent.GetComponent<Grid>().WorldToCell(transform.position);
+            TerrainGeneration.gridMap[posInGrid] = new int[2] {-1,0};
+            Destroy(gameObject);
         }
     }
 
