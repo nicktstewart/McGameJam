@@ -9,9 +9,11 @@ public class PlayerMoveDigging : MonoBehaviour
     public float speed;
     public static bool isDrilling;
     public static bool isMoving;
+    public static bool noItemInBlock;
     private bool isBreaking;
     private Player inputMap;
     private int coolDown = 0;
+    private GameObject particles;
     bool xReady;
     bool yReady;
 
@@ -34,7 +36,10 @@ public class PlayerMoveDigging : MonoBehaviour
         isMoving = false;
         xReady = true;
         yReady = true;
+        noItemInBlock = true;
         DashboardController.hp = 100;
+        particles = transform.GetChild(4).gameObject;
+        particles.SetActive(false);
     }
 
 
@@ -129,13 +134,19 @@ public class PlayerMoveDigging : MonoBehaviour
             transform.position = new Vector3(x, y, 0);
             yield return new WaitForSeconds(0.1f);
         }
+        else if(hitColliders[0].tag == "Snake"){
+            DashboardController.hp -= 10;
+
+        }
         else if (isDrilling && hitColliders[0].gameObject != this.gameObject)
         {
             GameObject block = hitColliders[0].gameObject;
             isBreaking = true;
-            Debug.Log(block);
+            noItemInBlock = true;
+            particles.SetActive(true);
             yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
-            if (isDrilling) transform.position = new Vector3(x, y, 0);
+            if (isDrilling && noItemInBlock) transform.position = new Vector3(x, y, 0);
+            particles.SetActive(false);
             isBreaking = false;
         }
         

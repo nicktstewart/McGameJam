@@ -16,7 +16,7 @@ public class TerrainGeneration : MonoBehaviour
     private Vector3Int posInGrid = Vector3Int.zero;
     private Grid thisGrid;
     [HideInInspector] public static Dictionary<Vector3Int,int[]> gridMap = new Dictionary<Vector3Int,int[]>();
-    private string[] tagArray = new string[6] {"Untagged","FossilFuel","Bomb","Fossil","Monster","Health"};
+    private string[] tagArray = new string[7] {"Untagged","FossilFuel","Bomb","Fossil","Monster","Health","Snake"};
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +35,7 @@ public class TerrainGeneration : MonoBehaviour
         for(int x=Xo; x<X; x++){
             for(int y=Yo; y<Y; y++){
                 int randomNoise = generateRandomNoise(x,y);
-                int randomIndex = Random.Range(0, materials.Length);
+                int randomIndex = Random.Range(0, 3);
                 switch (randomNoise)
                 {
                     case 0:
@@ -76,7 +76,7 @@ public class TerrainGeneration : MonoBehaviour
         else if(randomNoise < 0.15) choice = 4;
         return choice;
     }
-    private void addTileInMap(int tileIndex, int x, int y, int tag){
+    public static void addTileInMap(int tileIndex, int x, int y, int tag){
         gridMap.Add(new Vector3Int(x,y,0),new int[2] {tileIndex, tag});
     }
     private void spawnTile(int tileIndex, int x, int y, string tag){
