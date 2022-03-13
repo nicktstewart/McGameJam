@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class PauseMenuController : MonoBehaviour
 {
     private Player inputMap;
     private bool isOpen;
+    public Image fadeImage;
 
     void Start()
     {
@@ -38,13 +40,18 @@ public class PauseMenuController : MonoBehaviour
     {
         if(!isOpen && SceneManager.GetActiveScene().name == "Menu")
         {
-            StartGame();
+            StartCoroutine(FadeToBlack());
         }
     }
 
-    void StartGame()
+    IEnumerator FadeToBlack()
     {
-        SceneManager.LoadScene("Digging");
+        for (int i = 0; i < 30; i++)
+        {
+            fadeImage.color = new Color(1, 1, 1, i / 30.0f);
+            yield return new WaitForSeconds(0.02f);
+        }
+        SceneManager.LoadScene("Lore1");
     }
 
     void OnPause()
