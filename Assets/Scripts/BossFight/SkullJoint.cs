@@ -19,6 +19,11 @@ public class SkullJoint : MonoBehaviour
     [SerializeField]
     public AudioSource ClackAudio;
 
+    [SerializeField]
+    public Rigidbody2D projectile;
+
+    public Transform spawnPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +66,12 @@ public class SkullJoint : MonoBehaviour
         phase = HeadPhase.BiteUpPhase;
     }
 
+    void ThrowBomb()
+    {        
+        Rigidbody2D clone = (Rigidbody2D) Instantiate(projectile, spawnPoint.position, projectile.transform.rotation);
+        clone.transform.Rotate(0f, 0f, UnityEngine.Random.Range(0f, 360f));
+    }
+
     void GenericSkullAnim(int amp)
     {
         JointMotor2D motor = hinge.motor;
@@ -77,7 +88,10 @@ public class SkullJoint : MonoBehaviour
             if (motor.motorSpeed >= 1000) {
                 phase = HeadPhase.BiteUpPhase;
                 SendMessageUpwards("BiteUp");
-                if (masterPhase == MasterPhase.BiteRage) ClackAudio.Play();
+                if (masterPhase == MasterPhase.BiteRage) {
+                    ClackAudio.Play();
+                    ThrowBomb();
+                }
             }
         }
         hinge.motor = motor;
