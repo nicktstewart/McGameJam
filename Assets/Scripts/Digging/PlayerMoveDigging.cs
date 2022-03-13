@@ -130,10 +130,22 @@ public class PlayerMoveDigging : MonoBehaviour
             transform.position = new Vector3(x, y, 0);
             yield return new WaitForSeconds(0.1f);
         }
-        else if(hitColliders[0].tag == "Snake"){
+        else if(hitColliders[0].CompareTag("Snake")){
             DashboardController.hp -= 10;
             yield return new WaitForSeconds(0.1f);
 
+        }
+        else if(hitColliders[0].CompareTag("Heart")){
+            if(DashboardController.hp < (100 - 10)){
+                DashboardController.hp += 10;
+            }
+            else if(DashboardController.hp!=100){
+                DashboardController.hp = 100;
+            }
+            TerrainGeneration.gridMap[TerrainGeneration.ConvertToGridCoord(new Vector3(x,y,0))] = new int[2] {-1,0};
+            Destroy(hitColliders[0].gameObject);
+            transform.position = new Vector3(x, y, 0);
+            yield return new WaitForSeconds(0.1f);
         }
         else if (isDrilling && hitColliders[0].gameObject != this.gameObject)
         {

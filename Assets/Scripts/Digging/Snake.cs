@@ -53,7 +53,8 @@ public class Snake : MonoBehaviour
 
     private IEnumerator Shoot(){
         yield return new WaitForSeconds(3f);
-        Instantiate(fireBall, transform.position + transform.right*(-3.8f), transform.rotation);
+        bool canShoot = Physics2D.OverlapPointAll((Vector2)(transform.position - transform.right*3.8f)).Length == 0;
+        if(canShoot) Instantiate(fireBall, transform.position + transform.right*(-3.8f), transform.rotation);
         readyToShoot = true;
     }
 }

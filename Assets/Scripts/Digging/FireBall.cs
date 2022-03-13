@@ -30,7 +30,6 @@ public class FireBall : MonoBehaviour
         else{
             for (int i = 0; i<hitColliders.Length; i++){
                 if(hitColliders[i].CompareTag("Player")){
-                    Debug.Log("player hit");
                     DashboardController.hp -= 10;
                 }
                 else if (hitColliders[i].CompareTag("Snake")){

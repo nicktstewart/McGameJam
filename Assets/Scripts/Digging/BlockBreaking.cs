@@ -23,7 +23,7 @@ public class BlockBreaking : MonoBehaviour
 
             case "FossiFuel":
                 //Code executed when breaking a FOSSIL FUEL block
-                breakTime = 0.5f;
+                breakTime = 1f;
                 afterWaitTime = addFossilFuel;
                 break;
 
@@ -62,7 +62,8 @@ public class BlockBreaking : MonoBehaviour
     void nothing(){}
 
     void addHealth(){
-        DashboardController.hp ++;
+        PlayerMoveDigging.noItemInBlock = false;
+        TerrainGeneration.gridMap[posInGrid] = new int[2] {4,7};
     }
     void addFossilFuel(){
         //add fossil fuel
