@@ -57,11 +57,11 @@ public class PlayerMouvement : MonoBehaviour
         if(moveDelta != 0) moveDelta /= Mathf.Abs(moveDelta);
         isGrounded = IsGrounded();
 
-        if(isGrounded){
-            if (jumping == 1){
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            }
-        }
+        // if(isGrounded){
+        //     if (jumping == 1){
+        //         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        //     }
+        // }
     
         if(lastTouchedIsIce || hook.activeSelf){
             rb.AddForce(new Vector2(moveDelta*iceWalkSpeed,0));
