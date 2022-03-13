@@ -142,7 +142,7 @@ public class TerrainGeneration : MonoBehaviour
             }
         }
     }
-    async void clearBlocks(int Xmin, int Ymin, int Xmax, int Ymax){
+    void clearBlocks(int Xmin, int Ymin, int Xmax, int Ymax){
         Vector3 posBottomLeft = thisGrid.CellToWorld(new Vector3Int(Xmin, Ymin,0));
         Vector3 posTopRight = thisGrid.CellToWorld(new Vector3Int(Xmax, Ymax,0));
         Collider2D[] hitColliders = Physics2D.OverlapAreaAll((Vector2)posBottomLeft, (Vector2)posTopRight);
