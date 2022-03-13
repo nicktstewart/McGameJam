@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMoveDigging : MonoBehaviour
 {
     public GameObject emptyBoi;
+    public GameObject moreHealthMusic;
     public float speed;
     public static bool isDrilling;
     public static bool isMoving;
@@ -40,6 +41,9 @@ public class PlayerMoveDigging : MonoBehaviour
         DashboardController.hp = 100;
         particles = transform.GetChild(4).gameObject;
         particles.SetActive(false);
+        DashboardController.hasSkull = 0;
+        DashboardController.hasLeg = 0;
+        DashboardController.hasArm = 0;
     }
 
 
@@ -136,6 +140,7 @@ public class PlayerMoveDigging : MonoBehaviour
 
         }
         else if(hitColliders[0].CompareTag("Heart")){
+            GameObject music = Instantiate(moreHealthMusic, new Vector3(x,y,0),Quaternion.identity);
             if(DashboardController.hp < (100 - 10)){
                 DashboardController.hp += 10;
             }
@@ -145,6 +150,7 @@ public class PlayerMoveDigging : MonoBehaviour
             TerrainGeneration.gridMap[TerrainGeneration.ConvertToGridCoord(new Vector3(x,y,0))] = new int[2] {-1,0};
             Destroy(hitColliders[0].gameObject);
             transform.position = new Vector3(x, y, 0);
+            Destroy(music, 5f);
             yield return new WaitForSeconds(0.1f);
         }
         else if (hitColliders[0].CompareTag("FossilPart")){
