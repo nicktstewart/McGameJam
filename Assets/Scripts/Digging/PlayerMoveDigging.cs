@@ -129,10 +129,11 @@ public class PlayerMoveDigging : MonoBehaviour
             transform.position = new Vector3(x, y, 0);
             yield return new WaitForSeconds(0.1f);
         }
-        else if (isDrilling)
+        else if (isDrilling && hitColliders[0].gameObject != this.gameObject)
         {
             GameObject block = hitColliders[0].gameObject;
             isBreaking = true;
+            Debug.Log(block);
             yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
             if (isDrilling) transform.position = new Vector3(x, y, 0);
             isBreaking = false;

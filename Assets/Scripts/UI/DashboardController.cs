@@ -16,6 +16,13 @@ public class DashboardController : MonoBehaviour
     public GameObject Arm1;
     public GameObject Arm2;
 
+    void Start(){
+        Arm2.SetActive(false);
+        Arm1.SetActive(false);
+        Leg2.SetActive(false);
+        Leg1.SetActive(false);
+        Skull.SetActive(false);
+    }
     void FixedUpdate()
     {
         if(hp > 0)
