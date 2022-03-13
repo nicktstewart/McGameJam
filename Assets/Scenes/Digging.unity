@@ -360,15 +360,10 @@ MonoBehaviour:
   player: {fileID: 808056768}
   scale: 3
   offset: 495
-  renderDistance: 9
+  renderDistanceX: 6
+  renderDistanceY: 4
   width: 4
   height: 4
-  stoneMap: {fileID: 1960910804}
-  fossilFuelMap: {fileID: 1752746905}
-  fossilMap: {fileID: 1163466699}
-  bombMap: {fileID: 729365778}
-  monsterBlockMap: {fileID: 1944399621}
-  healthMap: {fileID: 1067783849}
   materials:
   - {fileID: 6062312517562146870, guid: 3c4c0820dd30f774eb0fae1ee91dd393, type: 3}
   - {fileID: 2895146999277451316, guid: 57c79e90ec44317429f6aec7f94f4f30, type: 3}
