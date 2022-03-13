@@ -134,3 +134,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc581f2e6df3da4d8c16f95c7f8d0e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 3679031870428585498, guid: 5c37b156e5f021e4491f7824bacadba2, type: 3}
+  explosionAudio: {fileID: 4183284105127325153, guid: ca7c1189b1fae2345b225d2285b51f1a, type: 3}

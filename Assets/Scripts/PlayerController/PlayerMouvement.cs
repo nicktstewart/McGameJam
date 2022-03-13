@@ -19,7 +19,7 @@ public class PlayerMouvement : MonoBehaviour
     public float iceWalkSpeed = 0.5f;           //walk speed on ice
     public float lauchMultiplier = 2f;
 
-    public float leftBound = -110f;
+    public float leftBound = -150f;
     public float rightBound = 10f;
 
     // public Animator animator;
@@ -34,6 +34,8 @@ public class PlayerMouvement : MonoBehaviour
         rb = transform.GetComponent<Rigidbody2D>();
         boxCollider = transform.GetComponent<BoxCollider2D>();
         crouching = inputMap.PlayerControls.Crouch.ReadValue<float>();
+
+        DashboardController.hp = 100;
     }
 
     private void OnEnable(){
