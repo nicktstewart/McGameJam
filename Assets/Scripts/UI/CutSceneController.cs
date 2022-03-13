@@ -11,12 +11,14 @@ public class CutSceneController : MonoBehaviour
     public string NextSceneName;
     private Player inputMap;
 
+    private bool canClick;
 
     void Start()
     {
         currentSlide = 0;
         Slides[currentSlide].SetActive(true);
         StartCoroutine(FadeFromBlack());
+        canClick = true;
     }
 
     private void OnEnable()
@@ -40,7 +42,9 @@ public class CutSceneController : MonoBehaviour
         }
         else
         {
-            StartCoroutine(FadeToBlack());
+            if(canClick)
+                StartCoroutine(FadeToBlack());
+            canClick = false;
         }
     }
 
