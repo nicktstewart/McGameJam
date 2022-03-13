@@ -48,6 +48,10 @@ public class BossController : MonoBehaviour
         MusicPaused.Stop();
         RoarAudio.Stop();
         currentPhase = MasterPhase.NULL;
+
+        DashboardController.hasSkull = 1;
+        DashboardController.hasLeg = 2;
+        DashboardController.hasArm = 2;
     }
 
     void BiteDown()

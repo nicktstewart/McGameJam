@@ -70,6 +70,7 @@ public class SkullJoint : MonoBehaviour
     {        
         Rigidbody2D clone = (Rigidbody2D) Instantiate(projectile, spawnPoint.position, projectile.transform.rotation);
         clone.transform.Rotate(0f, 0f, UnityEngine.Random.Range(0f, 360f));
+        clone.velocity = spawnPoint.TransformDirection(2 * Vector3.left);
     }
 
     void GenericSkullAnim(int amp)
