@@ -7,6 +7,7 @@ public class BlockBreaking : MonoBehaviour
 {
     delegate void AfterWaitTime();
     AfterWaitTime afterWaitTime;
+    Vector3Int posInGrid;
     //This is should be called when the player wants this block
     public float breakBlock(){
         float breakTime = 0.1f;
@@ -51,9 +52,9 @@ public class BlockBreaking : MonoBehaviour
     IEnumerator KillBlock(float waitTime){
         yield return new WaitForSeconds(waitTime);
         if(PlayerMoveDigging.isDrilling){
-            afterWaitTime();
-            Vector3Int posInGrid = transform.parent.GetComponent<Grid>().WorldToCell(transform.position);
+            posInGrid = transform.parent.GetComponent<Grid>().WorldToCell(transform.position);
             TerrainGeneration.gridMap[posInGrid] = new int[2] {-1,0};
+            afterWaitTime();
             Destroy(gameObject);
         }
     }
@@ -72,12 +73,15 @@ public class BlockBreaking : MonoBehaviour
     }
     void spawnMonster(){
         //spawn Monster
+        PlayerMoveDigging.noItemInBlock = false;
+        TerrainGeneration.gridMap[posInGrid] = new int[2] {3,6};
     }
     void foundFossil(){
-        if (DashboardController.hasLeg<=2){
-            DashboardController.hasLeg ++;
-        }
-        else if (DashboardController.hasArm<=2) DashboardController.hasArm ++;
+        if (DashboardController.hasLeg==0) DashboardController.hasLeg ++;
+        else if(DashboardController.hasLeg==1) DashboardController.hasLeg ++;
+        // else if(DashboardController.hasSonar) DashboardController.hasLeg ++;
+        else if (DashboardController.hasArm<=1) DashboardController.hasArm ++;
+        // else if (DashboardController.hasArm<=2) DashboardController.hasGrappling = true;
         else DashboardController.hasSkull ++;
         
     }

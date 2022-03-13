@@ -16,6 +16,7 @@ public class MenuParallax : MonoBehaviour
         }
         inputMap.Enable();
 
+        rt = GetComponent<RectTransform>();
     }
 
     void Update()

@@ -7,6 +7,6 @@ public class LoadDigging : MonoBehaviour
 {
     void LoadScene()
     {
-        SceneManager.LoadScene("Digging");
+        SceneManager.LoadScene("Lore1");
     }
 }
