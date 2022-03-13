@@ -29,6 +29,11 @@ public class HP : MonoBehaviour
             shownHp -= 0.3f;
             rectTransform.sizeDelta = new Vector2(initialX * shownHp / 100, initialY);
         }
+        if (playerHp > shownHp)
+        {
+            shownHp += 0.3f;
+            rectTransform.sizeDelta = new Vector2(initialX * shownHp / 100, initialY);
+        }
     }
 
     void Death()
