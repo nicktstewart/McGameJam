@@ -835,7 +835,7 @@ MonoBehaviour:
   fossilSprite: {fileID: 21300000, guid: ceeacac3e5914c2448a742f100b5bb74, type: 3}
   drill: {fileID: 1550688725}
   hitSound: {fileID: 1737563843}
-  complement: {fileID: 0}
+  complement: {fileID: 1820121339}
   partHP: 1
 --- !u!114 &584017407
 MonoBehaviour:
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   fossilSprite: {fileID: 21300000, guid: bc8e89af6c9660c4fbdab1de966a6c7c, type: 3}
   drill: {fileID: 1550688725}
   hitSound: {fileID: 1737563843}
-  complement: {fileID: 0}
+  complement: {fileID: 2115393988}
   partHP: 1
 --- !u!1 &812611153
 GameObject:
@@ -3829,7 +3829,7 @@ MonoBehaviour:
   fossilSprite: {fileID: 21300000, guid: 1cc5c9e679f52f848a149b38a4b934cc, type: 3}
   drill: {fileID: 1550688725}
   hitSound: {fileID: 1737563843}
-  complement: {fileID: 0}
+  complement: {fileID: 763297862}
   partHP: 0
 --- !u!4 &1716782925 stripped
 Transform:
@@ -4149,7 +4149,7 @@ MonoBehaviour:
   fossilSprite: {fileID: 21300000, guid: 835e4b91099eddf4abe46a8518fd2a3e, type: 3}
   drill: {fileID: 1550688725}
   hitSound: {fileID: 1737563843}
-  complement: {fileID: 0}
+  complement: {fileID: 1673643249}
   partHP: 1
 --- !u!1 &1846353681
 GameObject:

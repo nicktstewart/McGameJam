@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MasterPhase {
     NULL,
@@ -108,6 +109,11 @@ public class BossController : MonoBehaviour
 
         if (defeated) {
             if (Time.time - startTime > 5) EndGame();
+            return;
+        }
+
+        if (HP.playerHp <= 0) {
+            SceneManager.LoadScene("GameOver");
             return;
         }
 
