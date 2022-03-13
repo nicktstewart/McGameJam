@@ -18,6 +18,9 @@ public class PlayerMouvement : MonoBehaviour
     public float walkSpeed = 1f;                //walk speed on normal ground
     public float iceWalkSpeed = 0.5f;           //walk speed on ice
     public float lauchMultiplier = 2f;
+
+    public float leftBound = -110f;
+
     // public Animator animator;
     public GameObject hook;
 
@@ -80,6 +83,8 @@ public class PlayerMouvement : MonoBehaviour
                 rb.velocity = new Vector2(0, rb.velocity.y);                
             }
         }
+
+        if (rb.position.x < leftBound) rb.velocity = new Vector2(walkSpeed, 0f);
     }
     
     /**

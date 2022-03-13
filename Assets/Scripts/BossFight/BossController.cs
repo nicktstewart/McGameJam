@@ -37,8 +37,9 @@ public class BossController : MonoBehaviour
     private MasterPhase currentPhase;
 
     private MasterPhase[] attackPattern = new MasterPhase[]{
-        MasterPhase.BiteRage
+        MasterPhase.BiteRage, MasterPhase.RoarTaunt
     };
+    private float[] attackPatternDurations = new float[]{ 5f, 3f };
 
     private int attackPatternIndex = 0;
 
@@ -71,7 +72,8 @@ public class BossController : MonoBehaviour
         else {
             currentPhase = attackPattern[attackPatternIndex];
             BroadcastMessage("SetMasterPhase", currentPhase);
-            duration = 5f;
+            duration = attackPatternDurations[attackPatternIndex];
+            if (currentPhase == MasterPhase.RoarTaunt) RoarAudio.Play();
             attackPatternIndex = (attackPatternIndex + 1) % attackPattern.Length;
         }
     }

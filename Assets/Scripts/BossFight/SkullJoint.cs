@@ -16,12 +16,16 @@ public class SkullJoint : MonoBehaviour
     private HeadPhase phase;
     private MasterPhase masterPhase;
 
+    [SerializeField]
+    public AudioSource ClackAudio;
+
     // Start is called before the first frame update
     void Start()
     {
         hinge = GetComponent<HingeJoint2D>();
         phase = HeadPhase.NoPhase;
         masterPhase = MasterPhase.Idle;
+        ClackAudio.Stop();
     }
 
     void ResetHinge()
@@ -60,6 +64,7 @@ public class SkullJoint : MonoBehaviour
     void GenericSkullAnim(int amp)
     {
         JointMotor2D motor = hinge.motor;
+
         if (phase == HeadPhase.BiteUpPhase) {
             motor.motorSpeed -= amp;
             if (motor.motorSpeed <= -1000) {
@@ -72,6 +77,7 @@ public class SkullJoint : MonoBehaviour
             if (motor.motorSpeed >= 1000) {
                 phase = HeadPhase.BiteUpPhase;
                 SendMessageUpwards("BiteUp");
+                if (masterPhase == MasterPhase.BiteRage) ClackAudio.Play();
             }
         }
         hinge.motor = motor;
