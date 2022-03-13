@@ -167,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101935956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -61.6, y: -21.1, z: 0}
+  m_LocalPosition: {x: -61.6, y: -20.84, z: 0}
   m_LocalScale: {x: 1.2390919, y: 0.9297843, z: 0.24724999}
   m_Children:
   - {fileID: 762179219}
@@ -406,8 +406,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 40
-    m_UpperAngle: 105
+    m_LowerAngle: -40
+    m_UpperAngle: 40
 --- !u!114 &339797194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
   fossilSprite: {fileID: 21300000, guid: c7b89978e25fdd843bbdffcf14b72d47, type: 3}
   drill: {fileID: 1550688725}
   hitSound: {fileID: 1737563843}
-  complement: {fileID: 0}
+  complement: {fileID: 1445284856}
   partHP: 1
 --- !u!50 &339797195
 Rigidbody2D:
@@ -696,10 +696,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1179,8 +1179,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 60
+    m_LowerAngle: -120
+    m_UpperAngle: -40
 --- !u!114 &752234359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1875,8 +1875,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 60
+    m_LowerAngle: -120
+    m_UpperAngle: -40
 --- !u!50 &935439632
 Rigidbody2D:
   serializedVersion: 4
@@ -2571,7 +2571,7 @@ MonoBehaviour:
   fossilSprite: {fileID: 21300000, guid: 40546447e926f704c8c2ce17c218fe5b, type: 3}
   drill: {fileID: 1550688725}
   hitSound: {fileID: 1737563843}
-  complement: {fileID: 0}
+  complement: {fileID: 339797194}
   partHP: 1
 --- !u!114 &1208720756
 MonoBehaviour:
@@ -3045,8 +3045,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 50
-    m_UpperAngle: 140
+    m_LowerAngle: -30
+    m_UpperAngle: 10
 --- !u!61 &1445284853
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3153,7 +3153,7 @@ MonoBehaviour:
   fossilSprite: {fileID: 21300000, guid: e06b9b94e4b519743ae4d5a6a150333c, type: 3}
   drill: {fileID: 1550688725}
   hitSound: {fileID: 1737563843}
-  complement: {fileID: 0}
+  complement: {fileID: 1208720755}
   partHP: 1
 --- !u!1 &1532563145
 GameObject:
@@ -4458,7 +4458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993059138}
   m_LocalRotation: {x: -0, y: -0, z: 0.23426883, w: 0.9721719}
-  m_LocalPosition: {x: 2.2, y: -0.79, z: -2}
+  m_LocalPosition: {x: 2.2, y: -0.52, z: -2}
   m_LocalScale: {x: 3.9869123, y: 5.1340666, z: 2.872963}
   m_Children: []
   m_Father: {fileID: 101935960}
@@ -4486,8 +4486,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 40
-    m_UpperAngle: 105
+    m_LowerAngle: -40
+    m_UpperAngle: 40
 --- !u!114 &1993059141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4647,7 +4647,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015754807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.041, y: -3.42, z: 0}
+  m_LocalPosition: {x: 3.041, y: -3.05, z: 0}
   m_LocalScale: {x: 2.9965768, y: 4.543975, z: 3.1449242}
   m_Children: []
   m_Father: {fileID: 101935960}
@@ -4792,7 +4792,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 6.8525834
+  m_Distance: 6.518879
   m_DampingRatio: 0
   m_Frequency: 1
 --- !u!231 &2015754814
@@ -4812,7 +4812,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 2.6581156
+  m_Distance: 2.5728374
   m_DampingRatio: 0
   m_Frequency: 1
 --- !u!114 &2015754815
@@ -4990,8 +4990,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 50
-    m_UpperAngle: 140
+    m_LowerAngle: -30
+    m_UpperAngle: 10
 --- !u!50 &2115393985
 Rigidbody2D:
   serializedVersion: 4
