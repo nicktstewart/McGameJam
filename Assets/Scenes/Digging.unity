@@ -351,8 +351,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74eb8b6e4d24904b81d78329c345f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomSeed: 1
   player: {fileID: 808056768}
-  scale: 3
+  scale: 1
   offset: 495
   renderDistanceX: 6
   renderDistanceY: 6
