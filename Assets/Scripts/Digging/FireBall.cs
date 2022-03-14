@@ -15,7 +15,7 @@ public class FireBall : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 nextPos = transform.position - transform.right*Time.time/75;
+        Vector3 nextPos = transform.position - transform.right/5;
         bool noCollision = CheckNextBlock(nextPos - transform.right);
         if (noCollision) transform.position = nextPos;
         // if(canMove) StartCoroutine(Move());

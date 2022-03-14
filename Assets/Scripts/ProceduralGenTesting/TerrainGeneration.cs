@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class TerrainGeneration : MonoBehaviour
 {
+    public bool randomSeed;
     public Transform player;
     public float scale=1f;
     public int offset;
@@ -20,6 +21,7 @@ public class TerrainGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(randomSeed) offset = Random.Range(0,800000);
         gridMap = new Dictionary<Vector3Int,int[]>(); //initiate the Map
         thisGrid = this.GetComponent<Grid>();
         calculateBoundery();
@@ -71,10 +73,11 @@ public class TerrainGeneration : MonoBehaviour
 
         //0:Stone, 1:fossilFuel, 2:bomb, 3:fossil, 4:monsterBlock, 5:healthBlock
         int choice = 0;
-        if(randomNoise > 0.85) choice = 1;
-        else if(randomNoise<0.805 && randomNoise>0.795) choice = 5;
-        else if(randomNoise<0.501 && randomNoise>0.499) choice = 3;
-        else if(randomNoise<0.37 && randomNoise>0.23) choice = 1;
+        if(randomNoise > 0.88) choice = 3;
+        else if(randomNoise<0.88 && randomNoise>0.55) choice = 1;
+        // else if(randomNoise<0.805 && randomNoise>0.795) choice = 5;
+        else if(randomNoise<0.25 && randomNoise>0.15) choice = 5;
+        // else if(randomNoise<0.37 && randomNoise>0.23) choice = 0;
         else if(randomNoise < 0.15) choice = 4;
         return choice;
     }
