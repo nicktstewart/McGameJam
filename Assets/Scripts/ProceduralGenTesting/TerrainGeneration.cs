@@ -20,6 +20,7 @@ public class TerrainGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gridMap = new Dictionary<Vector3Int,int[]>(); //initiate the Map
         thisGrid = this.GetComponent<Grid>();
         calculateBoundery();
         maxHeight = newMaxHeight;
