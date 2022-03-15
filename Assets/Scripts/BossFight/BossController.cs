@@ -61,9 +61,9 @@ public class BossController : MonoBehaviour
         ClatterAudio.Stop();
         currentPhase = MasterPhase.NULL;
 
-        DashboardController.hasSkull = 1;
-        DashboardController.hasLeg = 2;
-        DashboardController.hasArm = 2;
+        DashboardController.hasSkull = 0;
+        DashboardController.hasLeg = 0;
+        DashboardController.hasArm = 0;
     }
 
     void BiteDown()
@@ -78,8 +78,17 @@ public class BossController : MonoBehaviour
 
     void Defeat()
     {
+        Music.Stop();
+        MusicPaused.Stop();
+        BroadcastMessage("BreakJoints");
+        ClatterAudio.Play();
+        
         startTime = Time.time;
         defeated = true;
+
+        DashboardController.hasSkull = 1;
+        DashboardController.hasLeg = 2;
+        DashboardController.hasArm = 2;
     }
 
     void EndGame()
@@ -113,6 +122,7 @@ public class BossController : MonoBehaviour
         }
 
         if (DashboardController.hp <= 0) {
+            partsAlive = 13;
             SceneManager.LoadScene("GameOver2");
             return;
         }
@@ -136,10 +146,6 @@ public class BossController : MonoBehaviour
 
         if (partsAlive == 0) {
             partsAlive = -1;
-            Music.Stop();
-            MusicPaused.Stop();
-            BroadcastMessage("BreakJoints");
-            ClatterAudio.Play();
             Defeat();
         }
     }

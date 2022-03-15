@@ -42,6 +42,7 @@ public class GenericBodyPart : MonoBehaviour
             if (!boned && partHP <= 0) {
                 setToBone();
                 if (BossController.partsAlive > 0) hitSound.Play();
+                print(BossController.partsAlive);
             }
         }
     }

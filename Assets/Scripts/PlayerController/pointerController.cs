@@ -113,6 +113,7 @@ public class pointerController : MonoBehaviour
     }
 
     private void StopShoot(){
+        if (hook == null) return;
         hook.SetActive(false);
         isHooking = false;
         Destroy(joint);

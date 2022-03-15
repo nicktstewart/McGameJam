@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,11 +20,19 @@ public class PlayerMouvement : MonoBehaviour
     public float iceWalkSpeed = 0.5f;           //walk speed on ice
     public float lauchMultiplier = 2f;
 
-    public float leftBound = -150f;
-    public float rightBound = 10f;
+    public float leftBound;
+    public float rightBound;
 
     // public Animator animator;
     public GameObject hook;
+
+    private Rigidbody2D drill;
+
+    [SerializeField]
+    public GameObject heal;
+
+    [SerializeField]
+    public AudioSource healAudio;
 
     [HideInInspector] public bool isGrounded;
 
@@ -35,6 +44,10 @@ public class PlayerMouvement : MonoBehaviour
         boxCollider = transform.GetComponent<BoxCollider2D>();
         crouching = inputMap.PlayerControls.Crouch.ReadValue<float>();
 
+        drill = transform.Find("Player_Doriru1").GetComponent<Rigidbody2D>();
+
+        healAudio.Stop();
+
         DashboardController.hp = 100;
     }
 
@@ -44,6 +57,14 @@ public class PlayerMouvement : MonoBehaviour
         }
         inputMap.Enable();
 
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject == heal) {
+            healAudio.Play();
+            DashboardController.hp = Math.Min(DashboardController.hp + 50, 100);
+            Destroy(heal, 0);
+        }
     }
 
     void FixedUpdate()
@@ -89,6 +110,8 @@ public class PlayerMouvement : MonoBehaviour
 
         if (rb.position.x < leftBound) rb.velocity = new Vector2(walkSpeed, 0f);
         if (rb.position.x > rightBound) rb.velocity = new Vector2(-walkSpeed, 0f);
+
+        drill.velocity = rb.velocity;
     }
     
     /**
