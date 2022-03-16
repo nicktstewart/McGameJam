@@ -128,11 +128,12 @@ public class PlayerMoveDigging : MonoBehaviour
         isMoving = true;
         y = Mathf.Round(y * 100f) / 100f;
         x = Mathf.Round(x * 100f) / 100f;
+        Vector3 nextPos = new Vector3(x,y,0);
 
         Collider2D[] hitColliders = Physics2D.OverlapPointAll(new Vector2(x, y));
         
         if(hitColliders.Length == 0){
-            transform.position = new Vector3(x, y, 0);
+            transform.position = nextPos;
             yield return new WaitForSeconds(0.1f);
         }
         else if(hitColliders[0].CompareTag("Snake")){
@@ -141,16 +142,16 @@ public class PlayerMoveDigging : MonoBehaviour
 
         }
         else if(hitColliders[0].CompareTag("Heart")){
-            GameObject music = Instantiate(moreHealthMusic, new Vector3(x,y,0),Quaternion.identity);
+            GameObject music = Instantiate(moreHealthMusic, nextPos, Quaternion.identity);
             if(DashboardController.hp < (100 - 10)){
                 DashboardController.hp += 10;
             }
             else if(DashboardController.hp!=100){
                 DashboardController.hp = 100;
             }
-            TerrainGeneration.gridMap[TerrainGeneration.ConvertToGridCoord(new Vector3(x,y,0))] = new int[2] {-1,0};
+            TerrainGeneration.breakBlock(nextPos);
             Destroy(hitColliders[0].gameObject);
-            transform.position = new Vector3(x, y, 0);
+            transform.position = nextPos;
             Destroy(music, 5f);
             yield return new WaitForSeconds(0.1f);
         }
@@ -161,7 +162,7 @@ public class PlayerMoveDigging : MonoBehaviour
             else if (DashboardController.hasArm<=1) DashboardController.hasArm ++;
             // else if (DashboardController.hasArm<=2) DashboardController.hasGrappling = true;
             else DashboardController.hasSkull ++;
-            TerrainGeneration.gridMap[TerrainGeneration.ConvertToGridCoord(new Vector3(x,y,0))] = new int[2] {-1,0};
+            TerrainGeneration.breakBlock(nextPos);
             Destroy(hitColliders[0].gameObject);
             yield return new WaitForSeconds(0.1f);
         }
@@ -171,9 +172,9 @@ public class PlayerMoveDigging : MonoBehaviour
             isBreaking = true;
             noItemInBlock = true;
             particles.SetActive(true);
-            GameObject breakingSound = Instantiate(miningSound,  new Vector3(x,y,0),Quaternion.identity);
+            GameObject breakingSound = Instantiate(miningSound,  nextPos, Quaternion.identity);
             yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
-            if (noItemInBlock) transform.position = new Vector3(x, y, 0);
+            if (noItemInBlock) transform.position = nextPos;
             DashboardController.hp -= 1;
             particles.SetActive(false);
             Destroy(breakingSound);

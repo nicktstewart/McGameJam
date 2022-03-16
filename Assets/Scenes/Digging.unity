@@ -355,7 +355,7 @@ MonoBehaviour:
   player: {fileID: 808056768}
   scale: 1
   offset: 495
-  renderDistanceX: 6
+  renderDistanceX: 7
   renderDistanceY: 6
   width: 4
   height: 4
@@ -368,7 +368,7 @@ MonoBehaviour:
   - {fileID: 1106035659488438459, guid: 607bec7e53611fb43a5df28c4d35f2e6, type: 3}
   - {fileID: 7705955629513244588, guid: de0d63d2eea7c1440a49a79e94bd858d, type: 3}
   - {fileID: 8342452165337025813, guid: 8542deb201da17144b06c6ce543b94bf, type: 3}
-  - {fileID: 6047202956862490399, guid: cce7f3f3e28c93245a5b1a132af0fe4f, type: 3}
+  - {fileID: 4724134968749636977, guid: d5ceea358c6ff984d82281011961674f, type: 3}
 --- !u!1 &808056765 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1398941710235730732, guid: 2057dbf445d2bd3418e04356e71919d3, type: 3}

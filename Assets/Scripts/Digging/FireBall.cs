@@ -5,20 +5,17 @@ using UnityEngine;
 public class FireBall : MonoBehaviour
 {
     public GameObject explotionSound;
-    private bool canMove;
     // Start is called before the first frame update
-    void Start()
-    {
-        canMove = true;
-    }
+    // void Start()
+    // {
+    // }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        Vector3 nextPos = transform.position - transform.right/5;
+        Vector3 nextPos = transform.position - transform.right*Time.deltaTime*6;
         bool noCollision = CheckNextBlock(nextPos - transform.right);
         if (noCollision) transform.position = nextPos;
-        // if(canMove) StartCoroutine(Move());
     }
     bool CheckNextBlock(Vector3 nextPos){
         Collider2D[] hitColliders = Physics2D.OverlapPointAll((Vector2)(nextPos));
@@ -29,7 +26,7 @@ public class FireBall : MonoBehaviour
                     DashboardController.hp -= 10;
                 }
                 else if (hitColliders[i].CompareTag("Snake")){
-                    TerrainGeneration.gridMap[TerrainGeneration.ConvertToGridCoord(nextPos)] = new int[2]{-1,0};
+                    TerrainGeneration.breakBlock(nextPos);
                     Destroy(hitColliders[i].gameObject);
                 }
             }

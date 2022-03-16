@@ -53,7 +53,7 @@ public class BlockBreaking : MonoBehaviour
     IEnumerator KillBlock(float waitTime){
         yield return new WaitForSeconds(waitTime);
         posInGrid = transform.parent.GetComponent<Grid>().WorldToCell(transform.position);
-        TerrainGeneration.gridMap[posInGrid] = new int[2] {-1,0};
+        TerrainGeneration.breakBlock(posInGrid);
         afterWaitTime();
         Destroy(gameObject);
     }
@@ -62,7 +62,7 @@ public class BlockBreaking : MonoBehaviour
 
     void addHealth(){
         PlayerMoveDigging.noItemInBlock = false;
-        TerrainGeneration.gridMap[posInGrid] = new int[2] {4,7};
+        TerrainGeneration.gridMap[posInGrid] = new int[3] {4,7,0};
     }
     void addFossilFuel(){
         //add fossil fuel
@@ -74,18 +74,18 @@ public class BlockBreaking : MonoBehaviour
     void spawnMonster(){
         //spawn Monster
         PlayerMoveDigging.noItemInBlock = false;
-        TerrainGeneration.gridMap[posInGrid] = new int[2] {3,6};
+        TerrainGeneration.gridMap[posInGrid] = new int[3] {3,6,0};
         GameObject SFX = Instantiate(snakeSound, transform.position, Quaternion.identity);
         Destroy(SFX, 4f);
     }
     void foundFossil(){
         PlayerMoveDigging.noItemInBlock = false;
-        if (DashboardController.hasLeg==0) TerrainGeneration.gridMap[posInGrid] = new int[2] {5,8};
-        else if(DashboardController.hasLeg==1) TerrainGeneration.gridMap[posInGrid] = new int[2] {5,8};
+        if (DashboardController.hasLeg==0) TerrainGeneration.gridMap[posInGrid] = new int[3] {5,8,0};
+        else if(DashboardController.hasLeg==1) TerrainGeneration.gridMap[posInGrid] = new int[3] {5,8,0};
         // else if(DashboardController.hasSonar) DashboardController.hasLeg ++;
-        else if (DashboardController.hasArm<=1) TerrainGeneration.gridMap[posInGrid] = new int[2] {6,8};
+        else if (DashboardController.hasArm<=1) TerrainGeneration.gridMap[posInGrid] = new int[3] {6,8,0};
         // else if (DashboardController.hasArm<=2) DashboardController.hasGrappling = true;
-        else TerrainGeneration.gridMap[posInGrid] = new int[2] {7,8};
+        else TerrainGeneration.gridMap[posInGrid] = new int[3] {7,8,0};
         
     }
 }
