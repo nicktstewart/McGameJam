@@ -5515,5 +5515,9 @@ PrefabInstance:
       propertyPath: moreHealthMusic
       value: 
       objectReference: {fileID: 5405829254706394812, guid: 6af77860567f9304aa7eaf4d4179015d, type: 3}
+    - target: {fileID: 1398941710235730735, guid: 2057dbf445d2bd3418e04356e71919d3, type: 3}
+      propertyPath: boneCollectSound
+      value: 
+      objectReference: {fileID: 5405829254706394810, guid: 6af77860567f9304aa7eaf4d4179015d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2057dbf445d2bd3418e04356e71919d3, type: 3}

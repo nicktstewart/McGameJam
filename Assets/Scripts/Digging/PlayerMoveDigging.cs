@@ -19,6 +19,9 @@ public class PlayerMoveDigging : MonoBehaviour
     bool xReady;
     bool yReady;
 
+    [SerializeField]
+    public AudioSource boneCollectSound;
+
     private void OnEnable()
     {
         if (inputMap == null)
@@ -45,6 +48,7 @@ public class PlayerMoveDigging : MonoBehaviour
         DashboardController.hasSkull = 0;
         DashboardController.hasLeg = 0;
         DashboardController.hasArm = 0;
+        boneCollectSound.Stop();
     }
 
 
@@ -164,6 +168,7 @@ public class PlayerMoveDigging : MonoBehaviour
             else DashboardController.hasSkull ++;
             TerrainGeneration.breakBlock(nextPos);
             Destroy(hitColliders[0].gameObject);
+            boneCollectSound.Play();
             yield return new WaitForSeconds(0.1f);
         }
         else if (hitColliders[0].gameObject != this.gameObject)
