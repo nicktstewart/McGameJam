@@ -5,19 +5,21 @@ using UnityEngine.Tilemaps;
 
 public class TerrainGeneration : MonoBehaviour
 {
-    public bool randomSeed;
+    public bool randomSeed; //Make the game random ,should be turned on (used for debugging)
     public Transform player;
     public float scale=1f;
     public int offset;
     public int renderDistanceX, renderDistanceY;
     private int maxWidth, maxHeight, minWidth, minHeight;
     private int newMaxWidth, newMaxHeight, newMinWidth, newMinHeight;
-    public int width, height;
-    public GameObject[] materials; //First dirt, then stone, finally gold
+    public int width, height; //these variables could be taken out with a bit of code tweking
+    public GameObject[] materials; //First dirt, then stone, finally gold (and more...)
     private Vector3Int posInGrid = Vector3Int.zero;
     static private Grid thisGrid;
+
+    //should make it private and create setter and getter methods
     [HideInInspector] public static Dictionary<Vector3Int,int[]> gridMap = new Dictionary<Vector3Int,int[]>();
-    private string[] tagArray = new string[9] {"Untagged","FossilFuel","Bomb","Fossil","Monster","Health","Snake","Heart","FossilPart"};
+    private string[] tagArray = new string[10] {"Untagged","FossilFuel","Bomb","Fossil","Monster","Health","Snake","Heart","FossilPart","Blackout"};
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +33,7 @@ public class TerrainGeneration : MonoBehaviour
         minWidth = newMinWidth;
 
         Generation(minWidth, minHeight, maxWidth, maxHeight);
-        gridMap[new Vector3Int(0,0,0)] = new int[2] {-1,0};
+        breakBlock(new Vector3Int(0,0,0));
     }
 
     //Method that generates the map from the point (X,Y) to the point (Xo,Yo)
@@ -82,7 +84,7 @@ public class TerrainGeneration : MonoBehaviour
         return choice;
     }
     public static void addTileInMap(int tileIndex, int x, int y, int tag){
-        gridMap.Add(new Vector3Int(x,y,0),new int[2] {tileIndex, tag});
+        gridMap.Add(new Vector3Int(x,y,0),new int[3] {tileIndex, tag, 1});
     }
     private void spawnTile(int tileIndex, int x, int y, string tag){
         Vector3 posInWorld = thisGrid.CellToWorld(new Vector3Int(x,y,0));
@@ -92,6 +94,7 @@ public class TerrainGeneration : MonoBehaviour
         tile.tag = tag;
     }
 
+    //Method that checks if 
     private void calculateBoundery(){
         posInGrid = thisGrid.WorldToCell(player.position);
         newMaxWidth = posInGrid.x+renderDistanceX;
@@ -100,7 +103,7 @@ public class TerrainGeneration : MonoBehaviour
         newMinHeight = posInGrid.y-renderDistanceY;
     }
 
-
+    // TODO: could clean this up by rendering the whole screen (render distance), and checking if the key is in the dictionnary
     // Update is called once per frame
     void Update()
     {
@@ -122,9 +125,10 @@ public class TerrainGeneration : MonoBehaviour
             Generation(newMinWidth,minHeight,minWidth,maxHeight);
             minWidth = newMinWidth;
         }
-
         RenderBlocks(posInGrid);
     }
+
+    //Method that takes out all the blocks not in render distance and spawn all the blocks that should be on the screen (without making doublicates)
     void RenderBlocks (Vector3Int playerPos){
         //Detect if any blocks are out of the render distance of the player
         //left side
@@ -135,50 +139,34 @@ public class TerrainGeneration : MonoBehaviour
         clearBlocks(maxWidth,newMaxHeight,minWidth,maxHeight);
         //bottom side
         clearBlocks(maxWidth,minHeight,minWidth,newMinHeight);
-
+        
         for(int x=newMinWidth; x<newMaxWidth; x++){
             for(int y=newMinHeight; y<newMaxHeight; y++){
-                //Blackout
-                // Vector3 worldPos = thisGrid.CellToWorld(new Vector3Int(x, y, 0));
-                // //Blackout
-                // bool hasNoLight = true;
-                // for (int initX = Mathf.Max(x-1,minWidth) ; initX < Mathf.Min(x+1,maxWidth); x++){
-                //     for(int initY = Mathf.Min(y+1,maxHeight); initY < Mathf.Min(x+1,maxHeight); y++){
-                //         if(gridMap[new Vector3Int(initX, initY, 0)][0] == -1) hasNoLight = false;
-                //     }
-                // }
-                // if(hasNoLight) {
-                //     Collider2D[] hitColliders = Physics2D.OverlapPointAll((Vector2)worldPos);
-                //     int[] indexAndTag = gridMap[new Vector3Int(x, y, 0)];
-                //     if(hitColliders.Length == 0){
-                //         spawnTile(indexAndTag[0], x, y, tagArray[indexAndTag[1]]);
-                //         Instantiate(materials[8],worldPos,Quaternion.identity);
-                //     }
-
-                // }
-                // else{
-                //     int[] indexAndTag = gridMap[new Vector3Int(x, y, 0)];
-                //     Collider2D[] hitColliders = Physics2D.OverlapPointAll((Vector2)worldPos);
-                //     bool hasBlock = false;
-                //     for(int i = 0; i<hitColliders.Length; i++){
-                //         if(hitColliders[i].CompareTag("Blackout")){
-                //             Destroy(hitColliders[i].gameObject);
-                //         }
-                //         else hasBlock = true;
-                //     }
-                //     if (!hasBlock && gridMap[new Vector3Int(x, y, 0)][0] == -1){
-                //         spawnTile(indexAndTag[0], x, y, tagArray[indexAndTag[1]]);
-                //     }
-                // }
                 int[] indexAndTag = gridMap[new Vector3Int(x, y, 0)];
                 Vector3 worldPos = thisGrid.CellToWorld(new Vector3Int(x, y, 0));
                 Collider2D[] hitColliders = Physics2D.OverlapPointAll((Vector2)worldPos);
                 if(hitColliders.Length == 0){
                     if(indexAndTag[0] != -1) spawnTile(indexAndTag[0], x, y, tagArray[indexAndTag[1]]);
                 }
+                else{
+                    bool blackoutPresent = false;
+                    for (int i = 0; i < hitColliders.Length; i++){
+                        if (hitColliders[i].CompareTag("Blackout")){
+                            blackoutPresent = true;
+                            if(indexAndTag[2] == 0){
+                                Debug.Log("detected");
+                                Destroy(hitColliders[i].gameObject);
+                            }
+                        }
+                    }
+                    if(!blackoutPresent && indexAndTag[2] == 1) spawnTile(8,x,y,tagArray[9]);
+                }
+                
             }
         }
     }
+    
+    //Method that take out anything with a collider between (Xmin, Ymin) and (Xmax, Ymax)
     void clearBlocks(int Xmin, int Ymin, int Xmax, int Ymax){
         Vector3 posBottomLeft = thisGrid.CellToWorld(new Vector3Int(Xmin, Ymin,0));
         Vector3 posTopRight = thisGrid.CellToWorld(new Vector3Int(Xmax, Ymax,0));
@@ -187,7 +175,33 @@ public class TerrainGeneration : MonoBehaviour
             Destroy(hitColliders[i].gameObject);
         }
     }
+
+    //Method that converts the world coordinates to the grid coordinates
     public static Vector3Int ConvertToGridCoord(Vector3 WorldPos){
         return thisGrid.WorldToCell(WorldPos);
+    }
+
+    //Being able to call this function with worldPos and gridPos is just easier in the rest of the code
+    public static void breakBlock(Vector3 worldPos){
+        Vector3Int gridPos = ConvertToGridCoord(worldPos);
+        breakInGrid(gridPos);
+    }
+    public static void breakBlock(Vector3Int gridPos){
+        breakInGrid(gridPos);
+    }
+    private static void breakInGrid(Vector3Int gridPos){
+        //set the center block to void
+        gridMap[gridPos] = new int[] {-1,0,0};
+        //Take out the blackout
+        // Debug.Log(gridPos);
+        // Debug.Log(gridPos.x-1);
+        // Debug.Log(gridPos.x+1);
+        // Debug.Log(gridPos.y);
+        for (int X = gridPos.x-1 ; X < gridPos.x+2; X++){
+            for(int Y = gridPos.y-1; Y < gridPos.y+2; Y++){
+                int[] intValues = gridMap[new Vector3Int(X,Y,0)];
+                gridMap[new Vector3Int(X,Y,0)] = new int[3] {intValues[0],intValues[1],0};
+            }
+        }
     }
 }

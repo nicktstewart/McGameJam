@@ -10,9 +10,9 @@ public class DrillBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        transform.position += transform.right/2;
+        transform.position += transform.right*Time.deltaTime*10;
         CheckNextBlock(transform.position+transform.right*2);
     }
     
