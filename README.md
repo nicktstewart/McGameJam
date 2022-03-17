@@ -12,3 +12,4 @@ See [issues](https://github.com/nicktstewart/McGameJam/issues)
  * Updated bones in dashboard during Boss Fight to match cutscene information
  * Set drill velocity to player velocity to prevent internal collisions
  * Added shadows to Digging scene to hide unexplored areas of map
+ * Added a minimap (Needs to be optimized... ALOT!)
