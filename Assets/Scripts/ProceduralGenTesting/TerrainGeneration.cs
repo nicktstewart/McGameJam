@@ -7,12 +7,11 @@ public class TerrainGeneration : MonoBehaviour
 {
     public bool randomSeed; //Make the game random ,should be turned on (used for debugging)
     public Transform player;
-    public float scale=1f;
+    static public float scale=4f;
     public int offset;
     public int renderDistanceX, renderDistanceY;
     private int maxWidth, maxHeight, minWidth, minHeight;
     private int newMaxWidth, newMaxHeight, newMinWidth, newMinHeight;
-    public int width, height; //these variables could be taken out with a bit of code tweking
     public GameObject[] materials; //First dirt, then stone, finally gold (and more...)
     private Vector3Int posInGrid = Vector3Int.zero;
     static private Grid thisGrid;
@@ -24,6 +23,7 @@ public class TerrainGeneration : MonoBehaviour
     void Start()
     {
         if(randomSeed) offset = Random.Range(0,800000);
+        MiniMap.offset = offset;
         gridMap = new Dictionary<Vector3Int,int[]>(); //initiate the Map
         thisGrid = this.GetComponent<Grid>();
         calculateBoundery();
@@ -68,8 +68,8 @@ public class TerrainGeneration : MonoBehaviour
     }
 
     int generateRandomNoise(int x, int y){
-        float perlinX = (float)(x+offset) / width * scale;
-        float perlinY = (float)(y+offset) / height * scale;
+        float perlinX = (float)(x+offset) / scale;
+        float perlinY = (float)(y+offset) / scale;
         
         float randomNoise = Mathf.PerlinNoise(perlinX, perlinY);
 

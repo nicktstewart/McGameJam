@@ -136,51 +136,56 @@ public class PlayerMoveDigging : MonoBehaviour
             transform.position = nextPos;
             yield return new WaitForSeconds(0.1f);
         }
-        else if(hitColliders[0].CompareTag("Snake")){
-            DashboardController.hp -= 10;
-            yield return new WaitForSeconds(0.1f);
+        else{
+            int i = 0;
+            for(int index = 0; index < hitColliders.Length; index++){
+                if(!hitColliders[index].CompareTag("Blackout")) i=index;
+            }
+            if(hitColliders[i].CompareTag("Snake")){
+                DashboardController.hp -= 10;
+                yield return new WaitForSeconds(0.1f);
 
-        }
-        else if(hitColliders[0].CompareTag("Heart")){
-            GameObject music = Instantiate(moreHealthMusic, nextPos, Quaternion.identity);
-            if(DashboardController.hp < (100 - 10)){
-                DashboardController.hp += 10;
             }
-            else if(DashboardController.hp!=100){
-                DashboardController.hp = 100;
+            else if(hitColliders[i].CompareTag("Heart")){
+                GameObject music = Instantiate(moreHealthMusic, nextPos, Quaternion.identity);
+                if(DashboardController.hp < (100 - 10)){
+                    DashboardController.hp += 10;
+                }
+                else if(DashboardController.hp!=100){
+                    DashboardController.hp = 100;
+                }
+                TerrainGeneration.breakBlock(nextPos);
+                Destroy(hitColliders[0].gameObject);
+                transform.position = nextPos;
+                Destroy(music, 5f);
+                yield return new WaitForSeconds(0.1f);
             }
-            TerrainGeneration.breakBlock(nextPos);
-            Destroy(hitColliders[0].gameObject);
-            transform.position = nextPos;
-            Destroy(music, 5f);
-            yield return new WaitForSeconds(0.1f);
+            else if (hitColliders[i].CompareTag("FossilPart")){
+                if(DashboardController.hasLeg==0) DashboardController.hasLeg ++;
+                else if(DashboardController.hasLeg==1) DashboardController.hasLeg ++;
+                // else if(DashboardController.hasSonar) DashboardController.hasLeg ++;
+                else if (DashboardController.hasArm<=1) DashboardController.hasArm ++;
+                // else if (DashboardController.hasArm<=2) DashboardController.hasGrappling = true;
+                else DashboardController.hasSkull ++;
+                TerrainGeneration.breakBlock(nextPos);
+                Destroy(hitColliders[i].gameObject);
+                yield return new WaitForSeconds(0.1f);
+            }
+            else if (hitColliders[i].TryGetComponent<BlockBreaking>(out BlockBreaking blockBreakingComponent))
+            {
+                GameObject block = hitColliders[i].gameObject;
+                isBreaking = true;
+                noItemInBlock = true;
+                particles.SetActive(true);
+                GameObject breakingSound = Instantiate(miningSound,  nextPos, Quaternion.identity);
+                yield return new WaitForSeconds(blockBreakingComponent.breakBlock());
+                if (noItemInBlock) transform.position = nextPos;
+                DashboardController.hp -= 1;
+                particles.SetActive(false);
+                Destroy(breakingSound);
+                isBreaking = false;
+            }
         }
-        else if (hitColliders[0].CompareTag("FossilPart")){
-            if(DashboardController.hasLeg==0) DashboardController.hasLeg ++;
-            else if(DashboardController.hasLeg==1) DashboardController.hasLeg ++;
-            // else if(DashboardController.hasSonar) DashboardController.hasLeg ++;
-            else if (DashboardController.hasArm<=1) DashboardController.hasArm ++;
-            // else if (DashboardController.hasArm<=2) DashboardController.hasGrappling = true;
-            else DashboardController.hasSkull ++;
-            TerrainGeneration.breakBlock(nextPos);
-            Destroy(hitColliders[0].gameObject);
-            yield return new WaitForSeconds(0.1f);
-        }
-        else if (hitColliders[0].gameObject != this.gameObject)
-        {
-            GameObject block = hitColliders[0].gameObject;
-            isBreaking = true;
-            noItemInBlock = true;
-            particles.SetActive(true);
-            GameObject breakingSound = Instantiate(miningSound,  nextPos, Quaternion.identity);
-            yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
-            if (noItemInBlock) transform.position = nextPos;
-            DashboardController.hp -= 1;
-            particles.SetActive(false);
-            Destroy(breakingSound);
-            isBreaking = false;
-        }
-        
         isMoving = false;
     }
 
