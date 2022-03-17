@@ -64,6 +64,7 @@ public class JawJoint : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {     
+        if (BossController.defeated) return;
         switch (masterPhase) {
             case MasterPhase.RoarTaunt:
                 GenericJawAnim(100);

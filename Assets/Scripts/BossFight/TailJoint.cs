@@ -46,6 +46,7 @@ public class TailJoint : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (BossController.defeated) return;
         if (whipFlag && hinge.limitState == JointLimitState2D.LowerLimit) {
             DownWhip();
         }

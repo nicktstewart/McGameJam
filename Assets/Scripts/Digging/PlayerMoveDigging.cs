@@ -19,6 +19,9 @@ public class PlayerMoveDigging : MonoBehaviour
     bool xReady;
     bool yReady;
 
+    [SerializeField]
+    public AudioSource boneCollectSound;
+
     private void OnEnable()
     {
         if (inputMap == null)
@@ -45,6 +48,7 @@ public class PlayerMoveDigging : MonoBehaviour
         DashboardController.hasSkull = 0;
         DashboardController.hasLeg = 0;
         DashboardController.hasArm = 0;
+        boneCollectSound.Stop();
     }
 
 
@@ -179,6 +183,32 @@ public class PlayerMoveDigging : MonoBehaviour
                 particles.SetActive(true);
                 GameObject breakingSound = Instantiate(miningSound,  nextPos, Quaternion.identity);
                 yield return new WaitForSeconds(blockBreakingComponent.breakBlock());
+                if (noItemInBlock) transform.position = nextPos;
+                DashboardController.hp -= 1;
+                particles.SetActive(false);
+                Destroy(breakingSound);
+                isBreaking = false;
+            }
+            else if (hitColliders[0].CompareTag("FossilPart")){
+                if(DashboardController.hasLeg==0) DashboardController.hasLeg ++;
+                else if(DashboardController.hasLeg==1) DashboardController.hasLeg ++;
+                // else if(DashboardController.hasSonar) DashboardController.hasLeg ++;
+                else if (DashboardController.hasArm<=1) DashboardController.hasArm ++;
+                // else if (DashboardController.hasArm<=2) DashboardController.hasGrappling = true;
+                else DashboardController.hasSkull ++;
+                TerrainGeneration.breakBlock(nextPos);
+                Destroy(hitColliders[0].gameObject);
+                boneCollectSound.Play();
+                yield return new WaitForSeconds(0.1f);
+            }
+            else if (hitColliders[0].gameObject != this.gameObject)
+            {
+                GameObject block = hitColliders[0].gameObject;
+                isBreaking = true;
+                noItemInBlock = true;
+                particles.SetActive(true);
+                GameObject breakingSound = Instantiate(miningSound,  nextPos, Quaternion.identity);
+                yield return new WaitForSeconds(block.GetComponent<BlockBreaking>().breakBlock());
                 if (noItemInBlock) transform.position = nextPos;
                 DashboardController.hp -= 1;
                 particles.SetActive(false);

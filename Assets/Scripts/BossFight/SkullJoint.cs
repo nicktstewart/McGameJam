@@ -101,6 +101,7 @@ public class SkullJoint : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (BossController.defeated) return;
         switch (masterPhase) {
             case MasterPhase.RoarTaunt:
                 GenericSkullAnim(900);

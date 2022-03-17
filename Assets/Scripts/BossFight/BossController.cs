@@ -48,7 +48,7 @@ public class BossController : MonoBehaviour
     private int attackPatternIndex = 0;
 
     public static int partsAlive = 13;
-    private bool defeated = false;
+    public static bool defeated = false;
 
     void Start()
     {
