@@ -541,9 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24bbd35daf65321439452b25eac1ad30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 100
-  height: 100
-  step: 5
+  step: 10
   player: {fileID: 808056765}
 --- !u!1 &1784671066
 GameObject:

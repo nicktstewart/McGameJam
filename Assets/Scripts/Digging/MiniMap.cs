@@ -5,8 +5,9 @@ using UnityEngine;
 //
 public class MiniMap : MonoBehaviour
 {
-    public int width, height;
+    static public int sideSize;
     public int step;
+    public static int maxStep;
     public GameObject player;
     private float scale;
     public static int offset;
@@ -14,6 +15,8 @@ public class MiniMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        maxStep = 5;
+        sideSize = 100;
         scale = TerrainGeneration.scale;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -22,19 +25,19 @@ public class MiniMap : MonoBehaviour
     void Update()
     {
         Vector3Int playerPos = TerrainGeneration.ConvertToGridCoord(player.transform.position);
-        spriteRenderer.sprite = Sprite.Create(GenerateTexture(playerPos), new Rect(0, 0, width, height), new Vector2(0, 0), (float)width);
+        spriteRenderer.sprite = Sprite.Create(GenerateTexture(playerPos), new Rect(0, 0, sideSize, sideSize), new Vector2(0, 0), (float)sideSize);
         // thisRenderer.material.mainTexture = GenerateTexture(playerPos);
     }
     Texture2D GenerateTexture(Vector3Int gridPlayerPos){
-        Texture2D texture = new Texture2D(width,height);
+        Texture2D texture = new Texture2D(sideSize,sideSize);
         // int Xmax = gridPlayerPos.x + (width)/2;
-        int Xmin = gridPlayerPos.x*step - (width)/2;
+        int Xmin = gridPlayerPos.x*step - (sideSize)/2;
         // int Ymax = gridPlayerPos.y + (height)/2;
-        int Ymin = gridPlayerPos.y*step - (height)/2;
-        for (int x = 0; x < width; x++){
-            for (int y = 0; y < height; y++){
-                texture.SetPixel(x,y,generateRandomNoise((x+Xmin)/step,(Ymin+y)/step));
-                if((x-width/2)/(step/2) == 0 && (y-height/2)/(step/2) == 0) texture.SetPixel(x,y,new Color(0.5f,0.2f,0.2f));
+        int Ymin = gridPlayerPos.y*step - (sideSize)/2;
+        for (int x = 0; x < sideSize; x++){
+            for (int y = 0; y < sideSize; y++){
+                texture.SetPixel(x,y,findPixelInGrid((x+Xmin)/step,(Ymin+y)/step));
+                if((x+Xmin)/step == gridPlayerPos.x && (y+Ymin)/step == gridPlayerPos.y) texture.SetPixel(x,y,new Color(0.5f,0.2f,0.2f));
             }
         }
         texture.Apply();
@@ -48,12 +51,24 @@ public class MiniMap : MonoBehaviour
 
         //0:Stone, 1:fossilFuel, 2:bomb, 3:fossil, 4:monsterBlock, 5:healthBlock
         float choice = 0f;
-        if(randomNoise > 0.88) choice = 1;
-        else if(randomNoise<0.88 && randomNoise>0.55) choice = 0.2f;
-        // // else if(randomNoise<0.805 && randomNoise>0.795) choice = 5;
-        // else if(randomNoise<0.25 && randomNoise>0.15) choice = 5;
-        // // else if(randomNoise<0.37 && randomNoise>0.23) choice = 0;
-        // else if(randomNoise < 0.15) choice = 4;
+        // if(randomNoise > 0.88) choice = 1;
+        // else if(randomNoise<0.88 && randomNoise>0.55) choice = 0.2f;
+        if(randomNoise-0.5 > 0) choice = (randomNoise-0.5f)*2;
         return new Color(choice,choice,choice);
+    }
+    Color findPixelInGrid(int x, int y){
+        Color pixelColor;
+        int material = TerrainGeneration.gridMap[new Vector3Int(x, y, 0)][1];
+        pixelColor = new Color(0,0,0);
+        switch(material){
+            case 1:
+                pixelColor = new Color(0.3f, 0.3f, 0.3f);
+                break;
+            case 3:
+                pixelColor = new Color(1f, 1f, 1f);
+                break;
+        }
+        if(TerrainGeneration.gridMap[new Vector3Int(x, y, 0)][0] == -1) pixelColor = new Color(87f/255, 64f/255, 40f/255);
+        return pixelColor;
     }
 }

@@ -40,29 +40,32 @@ public class TerrainGeneration : MonoBehaviour
     void Generation(int Xo, int Yo, int X, int Y){
         for(int x=Xo; x<X; x++){
             for(int y=Yo; y<Y; y++){
-                int randomNoise = generateRandomNoise(x,y);
-                int randomIndex = Random.Range(0, 3);
-                switch (randomNoise)
-                {
-                    case 0:
-                        addTileInMap(0,x,y,randomNoise);
-                        break;
-                    case 1:
-                        addTileInMap(1,x,y,randomNoise);
-                        break;
-                    case 2:
-                        addTileInMap(randomIndex,x,y,randomNoise);
-                        break;
-                    case 3:
-                        addTileInMap(2,x,y,randomNoise);
-                        break;
-                    case 4:
-                        addTileInMap(randomIndex,x,y,randomNoise);
-                        break;
-                    case 5:
-                        addTileInMap(2,x,y,randomNoise);
-                        break;
+                if(!gridMap.ContainsKey(new Vector3Int(x,y,0))){
+                    int randomNoise = generateRandomNoise(x,y);
+                    int randomIndex = Random.Range(0, 3);
+                    switch (randomNoise)
+                    {
+                        case 0:
+                            addTileInMap(0,x,y,randomNoise);
+                            break;
+                        case 1:
+                            addTileInMap(1,x,y,randomNoise);
+                            break;
+                        case 2:
+                            addTileInMap(randomIndex,x,y,randomNoise);
+                            break;
+                        case 3:
+                            addTileInMap(2,x,y,randomNoise);
+                            break;
+                        case 4:
+                            addTileInMap(randomIndex,x,y,randomNoise);
+                            break;
+                        case 5:
+                            addTileInMap(2,x,y,randomNoise);
+                            break;
+                    }
                 }
+                
             }
         }
     }
@@ -101,30 +104,20 @@ public class TerrainGeneration : MonoBehaviour
         newMaxHeight = posInGrid.y+renderDistanceY;
         newMinWidth = posInGrid.x-renderDistanceX;
         newMinHeight = posInGrid.y-renderDistanceY;
+        
+        if(newMaxHeight>maxHeight) maxHeight = newMaxHeight;
+        if(newMinHeight<minHeight) minHeight = newMinHeight;
+        if(newMaxWidth>maxWidth) maxWidth = newMaxWidth;
+        if(newMinWidth<minWidth) minWidth = newMinWidth;
     }
 
-    // TODO: could clean this up by rendering the whole screen (render distance), and checking if the key is in the dictionnary
     // Update is called once per frame
     void Update()
     {
         //Rendering new blocks out of the renderDistance
         calculateBoundery();
-        if(newMaxHeight>maxHeight){
-            Generation(minWidth,maxHeight,maxWidth,newMaxHeight);
-            maxHeight = newMaxHeight;
-        }
-        if(newMinHeight<minHeight){
-            Generation(minWidth,newMinHeight,maxWidth,minHeight);
-            minHeight = newMinHeight;
-        }
-        if(newMaxWidth>maxWidth){
-            Generation(maxWidth,minHeight,newMaxWidth,maxHeight);
-            maxWidth = newMaxWidth;
-        }
-        if(newMinWidth<minWidth){
-            Generation(newMinWidth,minHeight,minWidth,maxHeight);
-            minWidth = newMinWidth;
-        }
+        int sideSize = (MiniMap.sideSize/MiniMap.maxStep)/2;
+        Generation(posInGrid.x-sideSize, posInGrid.y-sideSize, posInGrid.x+sideSize, posInGrid.y+sideSize);
         RenderBlocks(posInGrid);
     }
 
@@ -193,10 +186,6 @@ public class TerrainGeneration : MonoBehaviour
         //set the center block to void
         gridMap[gridPos] = new int[] {-1,0,0};
         //Take out the blackout
-        // Debug.Log(gridPos);
-        // Debug.Log(gridPos.x-1);
-        // Debug.Log(gridPos.x+1);
-        // Debug.Log(gridPos.y);
         for (int X = gridPos.x-1 ; X < gridPos.x+2; X++){
             for(int Y = gridPos.y-1; Y < gridPos.y+2; Y++){
                 int[] intValues = gridMap[new Vector3Int(X,Y,0)];

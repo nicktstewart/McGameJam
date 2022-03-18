@@ -47,7 +47,7 @@ public class Snake : MonoBehaviour
         }
 
         if(hp == 0){
-            TerrainGeneration.gridMap[TerrainGeneration.ConvertToGridCoord(transform.position)] = new int[2]{-1,0};
+            TerrainGeneration.breakBlock(transform.position);
             Destroy(gameObject);
         }
     }
