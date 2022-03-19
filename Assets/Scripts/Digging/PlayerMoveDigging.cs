@@ -183,7 +183,12 @@ public class PlayerMoveDigging : MonoBehaviour
                 particles.SetActive(true);
                 GameObject breakingSound = Instantiate(miningSound,  nextPos, Quaternion.identity);
                 yield return new WaitForSeconds(blockBreakingComponent.breakBlock());
-                if (noItemInBlock) transform.position = nextPos;
+                if (noItemInBlock){
+                    transform.position = nextPos;
+                    if(MiniMap.step-0.2f > MiniMap.maxStep) MiniMap.step -= 0.1f;
+                    else MiniMap.step = MiniMap.maxStep+0.2f;
+                    Debug.Log(MiniMap.step);
+                }
                 DashboardController.hp -= 1;
                 particles.SetActive(false);
                 Destroy(breakingSound);

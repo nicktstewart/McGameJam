@@ -116,7 +116,7 @@ public class TerrainGeneration : MonoBehaviour
     {
         //Rendering new blocks out of the renderDistance
         calculateBoundery();
-        int sideSize = (MiniMap.sideSize/MiniMap.maxStep)/2;
+        int sideSize = (int)Mathf.Round((MiniMap.sideSize/MiniMap.maxStep)/2);
         Generation(posInGrid.x-sideSize, posInGrid.y-sideSize, posInGrid.x+sideSize, posInGrid.y+sideSize);
         RenderBlocks(posInGrid);
     }
@@ -147,7 +147,6 @@ public class TerrainGeneration : MonoBehaviour
                         if (hitColliders[i].CompareTag("Blackout")){
                             blackoutPresent = true;
                             if(indexAndTag[2] == 0){
-                                Debug.Log("detected");
                                 Destroy(hitColliders[i].gameObject);
                             }
                         }

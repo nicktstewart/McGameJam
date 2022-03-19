@@ -6,8 +6,9 @@ using UnityEngine;
 public class MiniMap : MonoBehaviour
 {
     static public int sideSize;
-    public int step;
-    public static int maxStep;
+    public float initStep;
+    static public float step;
+    public static float maxStep;
     public GameObject player;
     private float scale;
     public static int offset;
@@ -15,6 +16,7 @@ public class MiniMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        step = initStep;
         maxStep = 5;
         sideSize = 100;
         scale = TerrainGeneration.scale;
@@ -31,13 +33,16 @@ public class MiniMap : MonoBehaviour
     Texture2D GenerateTexture(Vector3Int gridPlayerPos){
         Texture2D texture = new Texture2D(sideSize,sideSize);
         // int Xmax = gridPlayerPos.x + (width)/2;
-        int Xmin = gridPlayerPos.x*step - (sideSize)/2;
+        float Xmin = gridPlayerPos.x*step - (sideSize)/2;
         // int Ymax = gridPlayerPos.y + (height)/2;
-        int Ymin = gridPlayerPos.y*step - (sideSize)/2;
+        float Ymin = gridPlayerPos.y*step - (sideSize)/2;
+        
         for (int x = 0; x < sideSize; x++){
             for (int y = 0; y < sideSize; y++){
-                texture.SetPixel(x,y,findPixelInGrid((x+Xmin)/step,(Ymin+y)/step));
-                if((x+Xmin)/step == gridPlayerPos.x && (y+Ymin)/step == gridPlayerPos.y) texture.SetPixel(x,y,new Color(0.5f,0.2f,0.2f));
+                int xMinimap = (int)Mathf.Round((x+Xmin)/step);
+                int yMinimap = (int)Mathf.Round((y+Ymin)/step);
+                texture.SetPixel(x,y,findPixelInGrid(xMinimap,yMinimap));
+                if(xMinimap == gridPlayerPos.x && yMinimap == gridPlayerPos.y) texture.SetPixel(x,y,new Color(0.5f,0.2f,0.2f));
             }
         }
         texture.Apply();
