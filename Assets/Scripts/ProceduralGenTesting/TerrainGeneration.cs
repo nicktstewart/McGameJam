@@ -116,7 +116,7 @@ public class TerrainGeneration : MonoBehaviour
     {
         //Rendering new blocks out of the renderDistance
         calculateBoundery();
-        int sideSize = (int)Mathf.Round((MiniMap.sideSize/MiniMap.maxStep)/2);
+        int sideSize = (int)Mathf.Round(MiniMap.sideSize/MiniMap.maxStep);
         Generation(posInGrid.x-sideSize, posInGrid.y-sideSize, posInGrid.x+sideSize, posInGrid.y+sideSize);
         RenderBlocks(posInGrid);
     }

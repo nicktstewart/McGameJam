@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 //
 public class MiniMap : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class MiniMap : MonoBehaviour
     public GameObject player;
     private float scale;
     public static int offset;
-    private SpriteRenderer spriteRenderer;
+    private Image spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class MiniMap : MonoBehaviour
         maxStep = 4;
         sideSize = 100;
         scale = TerrainGeneration.scale;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<Image>();
     }
 
     // Update is called once per frame
