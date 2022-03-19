@@ -27,7 +27,7 @@ public class MiniMap : MonoBehaviour
     void Update()
     {
         Vector3Int playerPos = TerrainGeneration.ConvertToGridCoord(player.transform.position);
-        spriteRenderer.sprite = Sprite.Create(GenerateTexture(playerPos), new Rect(0, 0, sideSize, sideSize), new Vector2(0, 0), (float)sideSize);
+        spriteRenderer.sprite = Sprite.Create(GenerateTexture(playerPos), new Rect(0, 0, sideSize, sideSize), new Vector2(0.5f, 0.5f), (float)sideSize);
         // thisRenderer.material.mainTexture = GenerateTexture(playerPos);
     }
     Texture2D GenerateTexture(Vector3Int gridPlayerPos){
