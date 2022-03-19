@@ -17,7 +17,7 @@ public class MiniMap : MonoBehaviour
     void Start()
     {
         step = initStep;
-        maxStep = 5;
+        maxStep = 4;
         sideSize = 100;
         scale = TerrainGeneration.scale;
         spriteRenderer = GetComponent<SpriteRenderer>();

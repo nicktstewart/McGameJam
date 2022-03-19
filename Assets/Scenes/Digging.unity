@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 984526752}
   - component: {fileID: 984526754}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Compas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24bbd35daf65321439452b25eac1ad30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  step: 10
+  initStep: 20
   player: {fileID: 808056765}
 --- !u!1 &1784671066
 GameObject:
