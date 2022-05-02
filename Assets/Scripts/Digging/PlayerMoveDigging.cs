@@ -7,6 +7,7 @@ public class PlayerMoveDigging : MonoBehaviour
 {
     public GameObject emptyBoi;
     public GameObject moreHealthMusic;
+    public GameObject boneCollectSound;
     public GameObject miningSound;
     public float speed;
     public static bool isDrilling;
@@ -18,9 +19,6 @@ public class PlayerMoveDigging : MonoBehaviour
     private GameObject particles;
     bool xReady;
     bool yReady;
-
-    [SerializeField]
-    public AudioSource boneCollectSound;
 
     private void OnEnable()
     {
@@ -48,7 +46,6 @@ public class PlayerMoveDigging : MonoBehaviour
         DashboardController.hasSkull = 0;
         DashboardController.hasLeg = 0;
         DashboardController.hasArm = 0;
-        boneCollectSound.Stop();
     }
 
 
@@ -165,6 +162,7 @@ public class PlayerMoveDigging : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
             else if (hitColliders[i].CompareTag("FossilPart")){
+                GameObject music = Instantiate(boneCollectSound, nextPos, Quaternion.identity);
                 if(DashboardController.hasLeg==0) DashboardController.hasLeg ++;
                 else if(DashboardController.hasLeg==1) DashboardController.hasLeg ++;
                 // else if(DashboardController.hasSonar) DashboardController.hasLeg ++;
@@ -173,6 +171,7 @@ public class PlayerMoveDigging : MonoBehaviour
                 else DashboardController.hasSkull ++;
                 TerrainGeneration.breakBlock(nextPos);
                 Destroy(hitColliders[i].gameObject);
+                Destroy(music, 5f);
                 yield return new WaitForSeconds(0.1f);
             }
             else if (hitColliders[i].TryGetComponent<BlockBreaking>(out BlockBreaking blockBreakingComponent))
@@ -202,7 +201,6 @@ public class PlayerMoveDigging : MonoBehaviour
                 else DashboardController.hasSkull ++;
                 TerrainGeneration.breakBlock(nextPos);
                 Destroy(hitColliders[0].gameObject);
-                boneCollectSound.Play();
                 yield return new WaitForSeconds(0.1f);
             }
             else if (hitColliders[0].gameObject != this.gameObject)
