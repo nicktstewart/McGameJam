@@ -13,3 +13,6 @@ See [issues](https://github.com/nicktstewart/McGameJam/issues)
  * Set drill velocity to player velocity to prevent internal collisions
  * Added shadows to Digging scene to hide unexplored areas of map
  * Added a minimap
+ * Added various sprites and animations:
+   * Digging phase parallax dirt background
+   * Bossil fight phase grappling hook and grappling hook charge animation
