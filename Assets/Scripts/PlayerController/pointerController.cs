@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ public class pointerController : MonoBehaviour
     public GameObject player;
     public Camera playerCamera;
     public GameObject hook;
+    public GameObject hookCharge;
     public SpriteRenderer hookSpriteRenderer;
     public LayerMask platformLayerMask;         //Filter to check for platforms
     public PlayerMouvement pm;
@@ -29,6 +31,7 @@ public class pointerController : MonoBehaviour
     void Start()
     {
         hook.SetActive(false);
+        hookCharge.SetActive(false);
         rb = player.GetComponent<Rigidbody2D>();
     }
 
@@ -64,7 +67,7 @@ public class pointerController : MonoBehaviour
             hook.transform.position = midPoint;
             //Setting the length of the hook
             hitDistance = Vector2.Distance(hitPointPos, (Vector2)playerPos);
-            hook.transform.localScale = new Vector3(hitDistance, 1f, 0);
+            hook.transform.localScale = new Vector3(hitDistance * 0.2f, 4f, 0);
 
             //Good rotation of the hook
             //find the angle of the triangle made by center, mouse, (mouseX,centerY)
@@ -74,10 +77,15 @@ public class pointerController : MonoBehaviour
 
             hook.transform.eulerAngles = new Vector3(0,0,theta);
 
+            hookCharge.transform.eulerAngles = new Vector3(0,0,theta);
+
             chargeRate += Time.deltaTime;
-            if (chargeRate < chargeDelay){
-                hookSpriteRenderer.color = new Color(1-(chargeRate/chargeDelay),0f,(chargeRate/chargeDelay));
-            }
+            
+            float ratio = Math.Min(chargeRate/chargeDelay, 1);
+
+            hookCharge.transform.position = (ratio * midPoint) + ((1 - ratio) * (Vector2) playerPos);
+            hookCharge.transform.localScale = new Vector3(ratio * hitDistance * 0.2f, 4f, 0);
+
         }
     }
 
@@ -108,6 +116,7 @@ public class pointerController : MonoBehaviour
             joint.enableCollision = true;
 
             hook.SetActive(true);
+            hookCharge.SetActive(true);
             isHooking = true;
         }
     }
@@ -115,6 +124,7 @@ public class pointerController : MonoBehaviour
     private void StopShoot(){
         if (hook == null) return;
         hook.SetActive(false);
+        hookCharge.SetActive(false);
         isHooking = false;
         Destroy(joint);
     }
